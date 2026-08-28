@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ruhiger Ferienbungalow in der Altmark für Urlaubsgäste, Monteure und längere Projektaufenthalte.">
+    <title>Ferienbungalow – noch in Bearbeitung</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+      .language-switcher { display: flex; gap: .4rem; align-items: center; margin-left: auto; }
+      .language-button { border: 1px solid rgba(0,0,0,.18); border-radius: 999px; background: #fff; color: #111; padding: .42rem .7rem; cursor: pointer; font: inherit; }
+      .language-button[aria-pressed="true"] { background: #244b3a; color: #fff; border-color: #244b3a; }
+      .site-header > .brand { margin-right: clamp(1.5rem, 3vw, 3rem); flex-shrink: 0; }
+      .site-header nav { display: flex; align-items: center; gap: clamp(.85rem, 1.5vw, 1.4rem); }
+      .inside-carousel { position: relative; max-width: 1160px; margin: auto; overflow: hidden; background: #d8d1c2; box-shadow: 0 14px 44px rgba(30,50,40,.12); }
+      .inside-carousel-image { display: block; width: 100%; height: clamp(360px, 58vw, 680px); object-fit: contain; background: #eee9df; }
+      .carousel-button { position: absolute; z-index: 2; top: 50%; width: 48px; height: 48px; border: 0; border-radius: 50%; background: rgba(24,49,43,.82); color: #fff; font-size: 25px; cursor: pointer; transform: translateY(-50%); }
+      .carousel-button:hover, .carousel-button:focus-visible { background: #18312b; }
+      .carousel-button.previous { left: 18px; }
+      .carousel-button.next { right: 18px; }
+      .carousel-status { position: absolute; z-index: 2; right: 18px; bottom: 16px; margin: 0; padding: .45rem .75rem; border-radius: 999px; background: rgba(24,49,43,.82); color: #fff; font-size: 12px; font-weight: 800; }
+      .carousel-dots { display: flex; justify-content: center; gap: 9px; padding: 15px; background: #fff; }
+      .carousel-dot { width: 11px; height: 11px; padding: 0; border: 1px solid #244b3a; border-radius: 50%; background: transparent; cursor: pointer; }
+      .carousel-dot[aria-current="true"] { background: #244b3a; }
+      /* Real images must stay inside their own section instead of using their
+         intrinsic dimensions to enlarge or overlap the following content. */
+      .info-split { align-items: stretch; overflow: hidden; }
+      .info-split > img.info-visual {
+        display: block;
+        width: calc(100% + clamp(24px, 7vw, 110px));
+        max-width: none;
+        height: 100%;
+        min-height: 550px;
+        margin-left: calc(clamp(24px, 7vw, 110px) * -1);
+        object-fit: cover;
+      }
+      .info-split.reverse > img.info-visual {
+        width: calc(100% + clamp(24px, 7vw, 110px));
+        margin: 0 calc(clamp(24px, 7vw, 110px) * -1) 0 0;
+      }
+      .distance-list > div { display: grid; grid-template-columns: minmax(115px, 135px) minmax(0, 1fr); column-gap: 1.2rem; align-items: start; padding-right: 1rem; }
+      .distance-list > div > b, .distance-list > div > span { min-width: 0; }
+      /* The four lower information blocks share the same left/right columns. */
+      .price-section,
+      .availability,
+      .inquiry { grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); align-items: start; }
+      .price-section { display: grid; gap: clamp(42px, 8vw, 120px); background: #f6f3ec; }
+      .price-details { min-width: 0; }
+      .price-table-wrap { width: 100%; max-width: 900px; margin: 0; overflow-x: auto; border-radius: 1rem; box-shadow: 0 8px 28px rgba(30,50,40,.08); }
+      .price-table { width: 100%; min-width: 620px; border-collapse: collapse; background: #fff; }
+      .price-table th, .price-table td { padding: .9rem 1rem; text-align: center; border-bottom: 1px solid #e4e0d8; }
+      .price-table th { background: #244b3a; color: #fff; }
+      .price-table th:first-child, .price-table td:first-child { text-align: left; font-weight: 700; }
+      .price-note { max-width: 900px; margin: 1rem auto 0; }
+      .legal-section { background: #fffdf8; }
+      .legal-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; align-items: start; }
+      .legal-card { padding: clamp(25px, 4vw, 45px); border: 1px solid #d9ddcf; background: #fff; }
+      .legal-card h2 { font-size: clamp(34px, 4vw, 48px); }
+      .legal-card h3 { margin: 1.6rem 0 .6rem; font-size: 1.15rem; }
+      .legal-card p, .legal-card li { color: #68756e; line-height: 1.7; }
+      .legal-card ul { padding-left: 1.25rem; }
+      .legal-placeholder { padding: 1rem; border-left: 4px solid #c86f4a; background: #f8eee8; color: #713b27 !important; }
+      #kalender { clear: both; position: relative; }
+      @media (max-width: 900px) {
+        .site-header { flex-wrap: wrap; }
+        .site-header > .brand { margin-right: 1rem; }
+        .language-switcher { order: 2; }
+        .site-header nav { order: 3; width: 100%; margin-top: .8rem; padding-top: .7rem; gap: .9rem; }
+        .price-section, .availability, .inquiry { grid-template-columns: 1fr; }
+        .price-table-wrap { max-width: none; }
+        .legal-grid { grid-template-columns: 1fr; }
+        .info-split > img.info-visual,
+        .info-split.reverse > img.info-visual { width: auto; height: 410px; min-height: 410px; margin: 0 calc(clamp(24px, 7vw, 110px) * -1); }
+      }
+      @media (max-width: 600px) {
+        .language-button { padding: .38rem .55rem; }
+        .language-button .language-name { display: none; }
+        .distance-list > div { grid-template-columns: 1fr; row-gap: .35rem; padding-right: .75rem; }
+        .inside-carousel-image { height: 68vw; min-height: 260px; max-height: 480px; }
+        .carousel-button { width: 42px; height: 42px; }
+        .carousel-button.previous { left: 10px; }
+        .carousel-button.next { right: 10px; }
+        .carousel-status { right: 10px; bottom: 54px; }
+        .info-split > img.info-visual,
+        .info-split.reverse > img.info-visual { width: auto; height: 330px; min-height: 330px; margin: 0 -20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Zur Startseite" data-aria-de="Zur Startseite" data-aria-en="Go to homepage">
+        <span class="brand-mark">⌂</span>
+        <span>Bungalow <b>in Winterfeld</b></span>
+      </a>
+      <nav aria-label="Hauptnavigation">
+        <a href="#bungalow" data-de="Der Bungalow" data-en="The bungalow">Der Bungalow</a>
+        <a href="#preise" data-de="Preise" data-en="Prices">Preise</a>
+        <a href="#garten" data-de="Garten" data-en="Garden">Garten</a>
+        <a href="#umgebung" data-de="Umgebung" data-en="Surroundings">Umgebung</a>
+        <a href="#kalender" data-de="Belegung" data-en="Availability">Belegung</a>
+        <a class="nav-cta" href="#anfrage" data-de="Anfragen" data-en="Enquire">Anfragen</a>
+      </nav>
+      <div class="language-switcher" aria-label="Sprache wählen">
+        <button class="language-button" type="button" data-language="de" aria-pressed="true" aria-label="Deutsch auswählen">🇩🇪 <span class="language-name">Deutsch</span></button>
+        <button class="language-button" type="button" data-language="en" aria-pressed="false" aria-label="Select English">🇬🇧 <span class="language-name">English</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-visual" role="img" aria-label="Außenansicht des Ferienbungalows" data-aria-de="Außenansicht des Ferienbungalows" data-aria-en="Exterior view of the holiday bungalow" style="background-image: url('images/exterior_view1.jpeg'); background-size: cover; background-position: center;"></div>
+        <div class="hero-copy">
+          <p class="eyebrow" data-de="Altmark · Ruhe · Entspannung · Zuhause auf Zeit" data-en="Altmark · Peace · Relaxation · A home away from home">Altmark · Ruhe · Entspannung · Zuhause auf Zeit</p>
+          <h1 data-de="Ihr kleiner Rückzugsort im Grünen" data-en="Your peaceful retreat in the countryside">Ihr kleiner Rückzugsort im Grünen</h1>
+          <p class="lead" data-de="Ob entspannter Landurlaub in der Altmark oder längerer Arbeitseinsatz in der Umgebung: Der ruhig hinter dem Wohnhaus gelegene Bungalow bietet einen angenehmen Rückzugsort für bis zu vier Personen. Zusätzliche Schlafmöglichkeiten sind auf Anfrage vorhanden." data-en="Whether you are planning a relaxing countryside holiday in the Altmark or a longer work assignment nearby, this quiet bungalow behind the main house is a comfortable retreat for up to four guests. Additional sleeping arrangements are available on request.">Ob entspannter Landurlaub in der Altmark oder längerer Arbeitseinsatz in der Umgebung: Der ruhig hinter dem Wohnhaus gelegene Bungalow bietet einen angenehmen Rückzugsort für bis zu vier Personen. Zusätzliche Schlafmöglichkeiten sind auf Anfrage vorhanden.</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#anfrage" data-de="Zeitraum anfragen" data-en="Request your dates">Zeitraum anfragen</a>
+            <a class="text-link" href="#bungalow"><span data-de="Bungalow ansehen" data-en="View the bungalow">Bungalow ansehen</span> <span>↓</span></a>
+          </div>
+          <ul class="quick-facts" aria-label="Kurzübersicht">
+            <li><b>4</b><span data-de="reguläre Schlafplätze" data-en="regular beds">reguläre Schlafplätze</span></li>
+            <li><b>2</b><span data-de="Zimmer" data-en="rooms">Zimmer</span></li>
+            <li><b>1</b><span data-de="Garten" data-en="garden">Garten</span></li>
+            <li><b data-de="ab 95 €" data-en="from €95">ab 95 €</b><span data-de="pro Nacht" data-en="per night">pro Nacht</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section bungalow-section" id="bungalow">
+        <div class="section-heading">
+          <p class="eyebrow" data-de="Der Bungalow" data-en="The bungalow">Der Bungalow</p>
+          <h2 data-de="Urlaubsort und ruhiges Zuhause auf Zeit" data-en="A peaceful holiday retreat and temporary home">Urlaubsort und ruhiges Zuhause auf Zeit</h2>
+          <p data-de="Der Bungalow liegt geschützt und sehr ruhig hinter dem Wohnhaus. Hier können Urlaubsgäste die ländliche Altmark genießen und Monteure nach einem langen Arbeitstag ungestört zur Ruhe kommen." data-en="The bungalow is sheltered and very quiet behind the main house. Holiday guests can enjoy the rural Altmark, while tradespeople and project staff can relax undisturbed after a long working day.">Der Bungalow liegt geschützt und sehr ruhig hinter dem Wohnhaus. Hier können Urlaubsgäste die ländliche Altmark genießen und Monteure nach einem langen Arbeitstag ungestört zur Ruhe kommen.</p>
+        </div>
+        <div class="guest-types" aria-label="Geeignet für Urlaubsgäste und Monteure">
+          <article>
+            <p class="eyebrow" data-de="Urlaub in der Altmark" data-en="A holiday in the Altmark">Urlaub in der Altmark</p>
+            <h3 data-de="Ruhe, Natur und viel Zeit zum Abschalten" data-en="Peace, nature and time to unwind">Ruhe, Natur und viel Zeit zum Abschalten</h3>
+            <p data-de="Ideal für alle, die ein paar entspannte Tage auf dem Land verbringen, die Altmark entdecken und den Alltag hinter sich lassen möchten." data-en="Ideal for anyone who wants to spend a few relaxing days in the countryside, explore the Altmark and leave everyday life behind.">Ideal für alle, die ein paar entspannte Tage auf dem Land verbringen, die Altmark entdecken und den Alltag hinter sich lassen möchten.</p>
+          </article>
+          <article>
+            <p class="eyebrow" data-de="Auch ideal für Monteure" data-en="Also ideal for tradespeople">Auch ideal für Monteure</p>
+            <h3 data-de="Erholen nach der Arbeit" data-en="Relax after work">Erholen nach der Arbeit</h3>
+            <p data-de="Für Monteure und Projektmitarbeiter ist der Bungalow ein ruhiger, angenehmer Wohnort für längere Aufenthalte, mit viel Privatsphäre und Platz zum Entspannen nach Feierabend." data-en="For tradespeople and project staff, the bungalow is a quiet and comfortable place for longer stays, with privacy and plenty of space to relax after work.">Für Monteure und Projektmitarbeiter ist der Bungalow ein ruhiger, angenehmer Wohnort für längere Aufenthalte, mit viel Privatsphäre und Platz zum Entspannen nach Feierabend.</p>
+          </article>
+        </div>
+        <div class="amenities">
+          <article><span>⌂</span><h3 data-de="Großzügig wohnen" data-en="Spacious accommodation">Großzügig wohnen</h3><p data-de="Der Bungalow verfügt über ein separates Schlafzimmer, ein Bad, eine Abstellkammer sowie einen großen, offenen Koch- und Wohnbereich." data-en="The bungalow has a separate bedroom, bathroom, storage room and a large open-plan kitchen and living area.">Der Bungalow verfügt über ein separates Schlafzimmer, ein Bad, eine Abstellkammer sowie einen großen, offenen Koch- und Wohnbereich.</p></article>
+          <article><span>☕</span><h3 data-de="Vollständig ausgestattete Küche" data-en="Fully equipped kitchen">Vollständig ausgestattete Küche</h3><p data-de="Kühlschrank, Kaffeemaschine, Geschirrspüler, Backofen und Herd sind vorhanden – praktisch für Urlaub und längere Aufenthalte." data-en="A fridge, coffee machine, dishwasher, oven and hob are provided, making the bungalow practical for holidays and longer stays.">Kühlschrank, Kaffeemaschine, Geschirrspüler, Backofen und Herd sind vorhanden – praktisch für Urlaub und längere Aufenthalte.</p></article>
+          <article><span>▤</span><h3 data-de="Flexible Schlafplätze" data-en="Flexible sleeping arrangements">Flexible Schlafplätze</h3><p data-de="Im Schlafzimmer stehen zwei Betten, die zusammengeschoben werden können. Die Schlafcouch im Wohnraum ist 1,60 m breit. Ein Klappbett und ein Luftbett sind auf Anfrage verfügbar." data-en="The bedroom has two beds that can be pushed together. The sofa bed in the living area is 1.60 m wide. A folding bed and an air bed are available on request.">Im Schlafzimmer stehen zwei Betten, die zusammengeschoben werden können. Die Schlafcouch im Wohnraum ist 1,60&nbsp;m breit. Ein Klappbett und ein Luftbett sind auf Anfrage verfügbar.</p></article>
+          <article><span>♨</span><h3 data-de="Kamin für kalte Tage" data-en="Fireplace for colder days">Kamin für kalte Tage</h3><p data-de="In der kalten Jahreszeit muss zusätzlich mit Holz geheizt werden. Der Kamin wird regelmäßig gewartet und wurde bisher immer problemlos genutzt. Wenn Sie unsicher sind, erklären wir Ihnen die Bedienung gerne vorab." data-en="During the colder months, additional heating with wood is required. The fireplace is serviced regularly and has always worked without problems. If you are unsure how to use it, we will gladly explain it beforehand.">In der kalten Jahreszeit muss zusätzlich mit Holz geheizt werden. Der Kamin wird regelmäßig gewartet und wurde bisher immer problemlos genutzt. Wenn Sie unsicher sind, erklären wir Ihnen die Bedienung gerne vorab.</p></article>
+          <article><span>♧</span><h3 data-de="Besonders ruhig gelegen" data-en="A particularly quiet location">Besonders ruhig gelegen</h3><p data-de="Geschützt hinter dem Wohnhaus finden Sie viel Ruhe und Privatsphäre – ideal zum Abschalten oder zum Erholen nach der Arbeit." data-en="Sheltered behind the main house, the bungalow offers peace and privacy – ideal for unwinding or relaxing after work.">Geschützt hinter dem Wohnhaus finden Sie viel Ruhe und Privatsphäre – ideal zum Abschalten oder zum Erholen nach der Arbeit.</p></article>
+          <article><span>↟</span><h3 data-de="Direkt loswandern" data-en="Walk straight from the property">Direkt loswandern</h3><p data-de="Entspannte Spaziergänge und Wanderungen beginnen direkt am Grundstück. Innerhalb weniger Minuten sind Sie aus dem Dorf und mitten in der ruhigen Landschaft." data-en="Relaxing walks and hikes start directly from the property. Within a few minutes you can leave the village behind and enjoy the peaceful countryside.">Entspannte Spaziergänge und Wanderungen beginnen direkt am Grundstück. Innerhalb weniger Minuten sind Sie aus dem Dorf und mitten in der ruhigen Landschaft.</p></article>
+        </div>
+        <div class="inside-carousel" id="inside-carousel" aria-label="Innenaufnahmen des Bungalows" data-aria-de="Innenaufnahmen des Bungalows" data-aria-en="Interior photos of the bungalow">
+          <img class="inside-carousel-image" id="inside-carousel-image" src="images/bungalow_inside1.jpeg" alt="Innenaufnahme 1 von 6" loading="lazy" decoding="async">
+          <button class="carousel-button previous" id="carousel-previous" type="button" aria-label="Vorheriges Bild" data-aria-de="Vorheriges Bild" data-aria-en="Previous photo">←</button>
+          <button class="carousel-button next" id="carousel-next" type="button" aria-label="Nächstes Bild" data-aria-de="Nächstes Bild" data-aria-en="Next photo">→</button>
+          <p class="carousel-status" id="carousel-status" aria-live="polite">1 / 6</p>
+          <div class="carousel-dots" id="carousel-dots" aria-label="Bild auswählen" data-aria-de="Bild auswählen" data-aria-en="Choose photo"></div>
+        </div>
+      </section>
+
+      <section class="info-split section" id="garten">
+        <img class="info-visual garden-visual" src="images/garden1.jpeg" alt="Garten des Ferienbungalows" data-alt-de="Garten des Ferienbungalows" data-alt-en="Garden of the holiday bungalow" loading="lazy" decoding="async" fetchpriority="low">
+        <div class="info-copy">
+          <p class="eyebrow" data-de="Nutzung des Gartens" data-en="Using the garden">Nutzung des Gartens</p>
+          <h2 data-de="Viel Platz unter freiem Himmel" data-en="Plenty of space outdoors">Viel Platz unter freiem Himmel</h2>
+          <p data-de="Der Garten bietet Urlaubsgästen einen entspannten Platz im Grünen und Monteuren einen ruhigen Feierabend unter freiem Himmel. Bitte beachten Sie dabei die folgenden Hinweise:" data-en="The garden offers holiday guests a relaxing place in the countryside and tradespeople a peaceful outdoor space after work. Please note the following:">Der Garten bietet Urlaubsgästen einen entspannten Platz im Grünen und Monteuren einen ruhigen Feierabend unter freiem Himmel. Bitte beachten Sie dabei die folgenden Hinweise:</p>
+          <ul class="check-list">
+            <li data-de="Wenn Sie zur richtigen Jahreszeit bei uns sind, dürfen Sie Äpfel, Birnen, Pflaumen und Kirschen für den Eigenbedarf pflücken." data-en="If you stay at the right time of year, you are welcome to pick apples, pears, plums and cherries for your own use.">Wenn Sie zur richtigen Jahreszeit bei uns sind, dürfen Sie Äpfel, Birnen, Pflaumen und Kirschen für den Eigenbedarf pflücken.</li>
+            <li data-de="Ein kleiner Grill ist vorhanden. Bitte fragen Sie uns vor der Benutzung kurz Bescheid." data-en="A small barbecue is available. Please ask us before using it.">Ein kleiner Grill ist vorhanden. Bitte fragen Sie uns vor der Benutzung kurz Bescheid.</li>
+            <li data-de="Auf der Nachbarwiese sind gelegentlich Schafe zu sehen. Mit etwas Glück lässt sich im Garten auch ein Eichhörnchen blicken." data-en="Sheep can occasionally be seen in the neighbouring meadow, and with a little luck you may also spot a squirrel in the garden.">Auf der Nachbarwiese sind gelegentlich Schafe zu sehen. Mit etwas Glück lässt sich im Garten auch ein Eichhörnchen blicken.</li>
+            <li data-de="Bitte füttern Sie Susi, die Schafe und andere Tiere nicht." data-en="Please do not feed Susi, the sheep or any other animals.">Bitte füttern Sie Susi, die Schafe und andere Tiere nicht.</li>
+            <li data-de="Haustiere sind nur nach vorheriger Anfrage erlaubt." data-en="Pets are only allowed by prior arrangement.">Haustiere sind nur nach vorheriger Anfrage erlaubt.</li>
+            <li data-de="Das Rauchen ist im Bungalow nicht gestattet." data-en="Smoking is not permitted inside the bungalow.">Das Rauchen ist im Bungalow nicht gestattet.</li>
+          </ul>
+          <div class="garden-note">
+            <h3 data-de="Unsere Hündin Susi" data-en="Our dog Susi">Unsere Hündin Susi</h3>
+            <p data-de="Unsere kleine Hündin Susi hält sich ebenfalls gerne im Garten auf. Bitte teilen Sie uns vor Ihrem Aufenthalt mit, wenn Sie sich damit unwohl fühlen oder selbst ein Haustier mitbringen möchten. Während Ihres Aufenthalts lassen wir Susi dann im Garten nur an der Leine laufen. Sie ist eher schüchtern und hat sich Menschen gegenüber bisher nie aggressiv verhalten." data-en="Our small dog Susi also enjoys spending time in the garden. Please let us know before your stay if you feel uncomfortable about this or would like to bring a pet of your own. During your stay, we will then keep Susi on a lead whenever she is in the garden. She is rather shy and has never behaved aggressively towards people.">Unsere kleine Hündin Susi hält sich ebenfalls gerne im Garten auf. Bitte teilen Sie uns vor Ihrem Aufenthalt mit, wenn Sie sich damit unwohl fühlen oder selbst ein Haustier mitbringen möchten. Während Ihres Aufenthalts lassen wir Susi dann im Garten nur an der Leine laufen. Sie ist eher schüchtern und hat sich Menschen gegenüber bisher nie aggressiv verhalten.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-split section reverse" id="umgebung">
+        <img class="info-visual area-visual" src="images/exterior_view1.jpeg" alt="Ruhige Lage des Ferienbungalows" data-alt-de="Ruhige Lage des Ferienbungalows" data-alt-en="Quiet location of the holiday bungalow" loading="lazy" decoding="async" fetchpriority="low">
+        <div class="info-copy">
+          <p class="eyebrow" data-de="In der Nähe" data-en="Nearby">In der Nähe</p>
+          <h2 data-de="Die Altmark entdecken oder nach Feierabend abschalten" data-en="Explore the Altmark or unwind after work">Die Altmark entdecken oder nach Feierabend abschalten</h2>
+          <p data-de="Die ländliche Umgebung lädt zu Spaziergängen, Wanderungen und erholsamen Ausflügen ein. Gleichzeitig finden Sie im Ort alles Wichtige für den täglichen Bedarf." data-en="The rural surroundings are ideal for walks, hikes and relaxing day trips. At the same time, the village provides everything you need for daily life.">Die ländliche Umgebung lädt zu Spaziergängen, Wanderungen und erholsamen Ausflügen ein. Gleichzeitig finden Sie im Ort alles Wichtige für den täglichen Bedarf.</p>
+          <div class="distance-list">
+            <div><b data-de="Im Ort" data-en="In the village">Im Ort</b><span data-de="Kleiner Supermarkt, Bäckerei, Fleischerei, Tankstelle und Kfz-Werkstatt" data-en="Small supermarket, bakery, butcher, petrol station and car repair shop">Kleiner Supermarkt, Bäckerei, Fleischerei, Tankstelle und Kfz-Werkstatt</span></div>
+            <div><b data-de="Im Ort" data-en="In the village">Im Ort</b><span data-de="Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben" data-en="Hoppstall riding stables and a Romanesque fieldstone church with a historic megalithic tomb beside it">Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben</span></div>
+            <div><b data-de="Nachbarort" data-en="Neighbouring village">Nachbarort</b><span data-de="Waldbad für eine Abkühlung an warmen Tagen" data-en="Woodland swimming pool for a refreshing dip on warm days">Waldbad für eine Abkühlung an warmen Tagen</span></div>
+            <div><b data-de="Ausflugsziel" data-en="Day trip">Ausflugsziel</b><span data-de="Der Arendsee, der größte natürliche See Sachsen-Anhalts und mit rund 50 m Tiefe einer der tiefsten Seen Norddeutschlands" data-en="Lake Arendsee, the largest natural lake in Saxony-Anhalt and, at around 50 m deep, one of northern Germany's deepest lakes">Der Arendsee, der größte natürliche See Sachsen-Anhalts und mit rund 50&nbsp;m Tiefe einer der tiefsten Seen Norddeutschlands</span></div>
+          </div>
+          <p data-de="Der Arendsee entstand durch Einbrüche des Untergrunds und gehört zu den größten Einbruchseen Norddeutschlands. Rund um den See bieten sich viele Möglichkeiten zum Baden, Spazierengehen und für weitere Ausflüge." data-en="Lake Arendsee was formed by collapses in the ground and is one of the largest collapse lakes in northern Germany. The lake and its surroundings offer many opportunities for swimming, walking and day trips.">Der Arendsee entstand durch Einbrüche des Untergrunds und gehört zu den größten Einbruchseen Norddeutschlands. Rund um den See bieten sich viele Möglichkeiten zum Baden, Spazierengehen und für weitere Ausflüge.</p>
+        </div>
+      </section>
+
+      <section class="section price-section" id="preise">
+        <div class="section-heading compact">
+          <p class="eyebrow" data-de="Preise" data-en="Prices">Preise</p>
+          <h2 data-de="Übersichtliche Gesamtpreise" data-en="Clear total prices">Übersichtliche Gesamtpreise</h2>
+          <p data-de="Die Tabelle zeigt gerundete Gesamtpreise für häufige Aufenthaltsdauern. Längere Aufenthalte werden pro Nacht günstiger." data-en="The table shows rounded total prices for common lengths of stay. Longer stays cost less per night.">Die Tabelle zeigt gerundete Gesamtpreise für häufige Aufenthaltsdauern. Längere Aufenthalte werden pro Nacht günstiger.</p>
+        </div>
+        <div class="price-details">
+          <div class="price-table-wrap">
+            <table class="price-table">
+            <thead>
+              <tr>
+                <th scope="col" data-de="Aufenthalt" data-en="Stay">Aufenthalt</th>
+                <th scope="col" data-de="1 Person" data-en="1 guest">1 Person</th>
+                <th scope="col" data-de="2 Personen" data-en="2 guests">2 Personen</th>
+                <th scope="col" data-de="3 Personen" data-en="3 guests">3 Personen</th>
+                <th scope="col" data-de="4 Personen" data-en="4 guests">4 Personen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td data-de="2 Nächte" data-en="2 nights">2 Nächte</td><td data-de="190 €" data-en="€190">190 €</td><td data-de="210 €" data-en="€210">210 €</td><td data-de="230 €" data-en="€230">230 €</td><td data-de="250 €" data-en="€250">250 €</td></tr>
+              <tr><td data-de="3 Nächte" data-en="3 nights">3 Nächte</td><td data-de="275 €" data-en="€275">275 €</td><td data-de="305 €" data-en="€305">305 €</td><td data-de="335 €" data-en="€335">335 €</td><td data-de="365 €" data-en="€365">365 €</td></tr>
+              <tr><td data-de="7 Nächte" data-en="7 nights">7 Nächte</td><td data-de="585 €" data-en="€585">585 €</td><td data-de="655 €" data-en="€655">655 €</td><td data-de="725 €" data-en="€725">725 €</td><td data-de="795 €" data-en="€795">795 €</td></tr>
+              <tr><td data-de="14 Nächte" data-en="14 nights">14 Nächte</td><td data-de="1.110 €" data-en="€1,110">1.110 €</td><td data-de="1.250 €" data-en="€1,250">1.250 €</td><td data-de="1.390 €" data-en="€1,390">1.390 €</td><td data-de="1.530 €" data-en="€1,530">1.530 €</td></tr>
+            </tbody>
+            </table>
+          </div>
+          <p class="price-note" data-de="Die Preisbeispiele enthalten die jeweils eingeplanten Reinigungskosten. Für andere Aufenthaltsdauern erstellen wir Ihnen gerne ein passendes Angebot." data-en="These sample prices include the scheduled cleaning costs. We will gladly provide an individual quote for other lengths of stay.">Die Preisbeispiele enthalten die jeweils eingeplanten Reinigungskosten. Für andere Aufenthaltsdauern erstellen wir Ihnen gerne ein passendes Angebot.</p>
+        </div>
+      </section>
+
+      <section class="section availability" id="kalender">
+        <div class="section-heading compact">
+          <p class="eyebrow" data-de="Freie Zeiten" data-en="Available dates">Freie Zeiten</p>
+          <h2 data-de="Belegung prüfen" data-en="Check availability">Belegung prüfen</h2>
+          <p data-de="Rot markierte Tage sind bereits belegt. Mit den Pfeilen können Sie zwischen den Monaten wechseln." data-en="Dates marked in red are already booked. Use the arrows to move between months.">Rot markierte Tage sind bereits belegt. Mit den Pfeilen können Sie zwischen den Monaten wechseln.</p>
+        </div>
+        <div class="calendar-card">
+          <div class="calendar-heading">
+            <button id="previous-month" type="button" aria-label="Vorheriger Monat" data-aria-de="Vorheriger Monat" data-aria-en="Previous month">←</button>
+            <h3 id="month-label"></h3>
+            <button id="next-month" type="button" aria-label="Nächster Monat" data-aria-de="Nächster Monat" data-aria-en="Next month">→</button>
+          </div>
+          <div class="calendar-grid weekdays" aria-hidden="true">
+            <span data-de="Mo" data-en="Mon">Mo</span><span data-de="Di" data-en="Tue">Di</span><span data-de="Mi" data-en="Wed">Mi</span><span data-de="Do" data-en="Thu">Do</span><span data-de="Fr" data-en="Fri">Fr</span><span data-de="Sa" data-en="Sat">Sa</span><span data-de="So" data-en="Sun">So</span>
+          </div>
+          <div class="calendar-grid" id="calendar-days" role="grid" aria-label="Belegungskalender" data-aria-de="Belegungskalender" data-aria-en="Availability calendar"></div>
+          <div class="legend">
+            <span><i class="dot available-dot"></i><span data-de="frei" data-en="available">frei</span></span>
+            <span><i class="dot booked-dot"></i><span data-de="belegt" data-en="booked">belegt</span></span>
+          </div>
+          <p class="calendar-note" data-de="Der Kalender zeigt eine unverbindliche Übersicht. Die Buchung wird erst nach persönlicher Bestätigung verbindlich." data-en="The calendar provides a non-binding overview. A booking is only confirmed after you receive our personal confirmation.">Der Kalender zeigt eine unverbindliche Übersicht. Die Buchung wird erst nach persönlicher Bestätigung verbindlich.</p>
+        </div>
+      </section>
+
+      <section class="section inquiry" id="anfrage">
+        <div class="inquiry-intro">
+          <p class="eyebrow" data-de="Unverbindliche Anfrage" data-en="No-obligation enquiry">Unverbindliche Anfrage</p>
+          <h2 data-de="Passt der Bungalow zu Ihrem Aufenthalt?" data-en="Is the bungalow right for your stay?">Passt der Bungalow zu Ihrem Aufenthalt?</h2>
+          <p data-de="Ob Urlaub, Montage oder längerer Projekteinsatz: Senden Sie uns einfach Ihren Wunschzeitraum. Wir melden uns persönlich zurück und bestätigen, ob der Bungalow verfügbar ist." data-en="Whether you are planning a holiday, a work assignment or a longer project stay, simply send us your preferred dates. We will reply personally and confirm whether the bungalow is available.">Ob Urlaub, Montage oder längerer Projekteinsatz: Senden Sie uns einfach Ihren Wunschzeitraum. Wir melden uns persönlich zurück und bestätigen, ob der Bungalow verfügbar ist.</p>
+          <div class="contact-card">
+            <span data-de="Antwort normalerweise innerhalb von 24 Stunden" data-en="We normally reply within 24 hours">Antwort normalerweise innerhalb von 24 Stunden</span>
+            <b>kontakt@beispiel-bungalow.de</b>
+            <b>+49 000 000000</b>
+          </div>
+        </div>
+        <form class="inquiry-form" id="inquiry-form">
+          <div class="form-row">
+            <label><span data-de="Anreise" data-en="Arrival">Anreise</span><input name="arrival" type="date" required></label>
+            <label><span data-de="Abreise" data-en="Departure">Abreise</span><input name="departure" type="date" required></label>
+          </div>
+          <div class="form-row">
+            <label><span data-de="Name" data-en="Name">Name</span><input name="name" type="text" placeholder="Vor- und Nachname" data-placeholder-de="Vor- und Nachname" data-placeholder-en="First and last name" required></label>
+            <label><span data-de="E-Mail" data-en="Email">E-Mail</span><input name="email" type="email" placeholder="name@beispiel.de" data-placeholder-de="name@beispiel.de" data-placeholder-en="name@example.com" required></label>
+          </div>
+          <div class="form-row">
+            <label><span data-de="Gäste" data-en="Guests">Gäste</span><select name="guests"><option value="1" data-de="1 Person" data-en="1 guest">1 Person</option><option value="2" data-de="2 Personen" data-en="2 guests" selected>2 Personen</option><option value="3" data-de="3 Personen" data-en="3 guests">3 Personen</option><option value="4" data-de="4 Personen" data-en="4 guests">4 Personen</option></select></label>
+            <label><span data-de="Telefon (optional)" data-en="Phone (optional)">Telefon (optional)</span><input name="phone" type="tel" placeholder="Telefonnummer" data-placeholder-de="Telefonnummer" data-placeholder-en="Phone number"></label>
+          </div>
+          <label><span data-de="Nachricht (optional)" data-en="Message (optional)">Nachricht (optional)</span><textarea name="note" rows="4" placeholder="Gibt es noch etwas, das wir wissen sollten?" data-placeholder-de="Gibt es noch etwas, das wir wissen sollten?" data-placeholder-en="Is there anything else we should know?"></textarea></label>
+          <label class="privacy-check"><input type="checkbox" required><span data-de="Ich stimme zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden." data-en="I agree that my details may be used to process this enquiry.">Ich stimme zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden.</span></label>
+          <button class="primary-button form-button" type="submit" data-de="Unverbindlich anfragen" data-en="Send a no-obligation enquiry">Unverbindlich anfragen</button>
+          <p class="form-message" id="form-message" aria-live="polite" hidden></p>
+        </form>
+      </section>
+
+      <section class="section legal-section" id="rechtliches">
+        <div class="legal-grid">
+          <article class="legal-card" id="impressum">
+            <p class="eyebrow" data-de="Rechtliche Angaben" data-en="Legal information">Rechtliche Angaben</p>
+            <h2 data-de="Impressum" data-en="Legal notice">Impressum</h2>
+            <p class="legal-placeholder" data-de="Vor der Veröffentlichung bitte alle Angaben in eckigen Klammern ersetzen." data-en="Please replace all details in square brackets before publishing.">Vor der Veröffentlichung bitte alle Angaben in eckigen Klammern ersetzen.</p>
+            <h3 data-de="Angaben gemäß § 5 DDG" data-en="Information pursuant to Section 5 DDG">Angaben gemäß § 5 DDG</h3>
+            <p>[Vorname Nachname]<br>[Straße Hausnummer]<br>[PLZ Ort]<br>Deutschland</p>
+            <h3 data-de="Kontakt" data-en="Contact">Kontakt</h3>
+            <p data-de="Telefon: [Telefonnummer]" data-en="Phone: [phone number]">Telefon: [Telefonnummer]</p>
+            <p data-de="E-Mail: [E-Mail-Adresse]" data-en="Email: [email address]">E-Mail: [E-Mail-Adresse]</p>
+            <h3 data-de="Umsatzsteuer" data-en="VAT information">Umsatzsteuer</h3>
+            <p data-de="Falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.]. Andernfalls diesen Absatz entfernen." data-en="If applicable: VAT identification number pursuant to Section 27a UStG: [VAT ID]. Otherwise remove this paragraph.">Falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.]. Andernfalls diesen Absatz entfernen.</p>
+          </article>
+
+          <article class="legal-card" id="datenschutz">
+            <p class="eyebrow" data-de="Hinweise zur Datenverarbeitung" data-en="Data processing information">Hinweise zur Datenverarbeitung</p>
+            <h2 data-de="Datenschutzerklärung" data-en="Privacy policy">Datenschutzerklärung</h2>
+            <p class="legal-placeholder" data-de="Dieser Entwurf gilt für die derzeitige statische Testseite ohne Analysewerkzeuge und ohne funktionierende Formularübertragung. Sobald ein Formular- oder Buchungsdienst angeschlossen wird, muss er ergänzt werden." data-en="This draft applies to the current static test site without analytics and without a working form submission. It must be updated as soon as a form or booking service is connected.">Dieser Entwurf gilt für die derzeitige statische Testseite ohne Analysewerkzeuge und ohne funktionierende Formularübertragung. Sobald ein Formular- oder Buchungsdienst angeschlossen wird, muss er ergänzt werden.</p>
+            <h3 data-de="1. Verantwortliche Stelle" data-en="1. Controller">1. Verantwortliche Stelle</h3>
+            <p>[Vorname Nachname], [vollständige Anschrift], [E-Mail-Adresse], [Telefonnummer]</p>
+            <h3 data-de="2. Hosting über GitHub Pages" data-en="2. Hosting via GitHub Pages">2. Hosting über GitHub Pages</h3>
+            <p data-de="Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf verarbeitet GitHub insbesondere die IP-Adresse sowie technische Verbindungs- und Nutzungsdaten. GitHub gibt an, IP-Adressen von Besuchern aus Sicherheitsgründen zu protokollieren und zu speichern. Die Verarbeitung erfolgt zur sicheren und zuverlässigen Bereitstellung der Website auf Grundlage unseres berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO." data-en="This website is hosted using GitHub Pages. When the site is accessed, GitHub processes data including the visitor's IP address and technical connection and usage data. GitHub states that visitors' IP addresses are logged and stored for security purposes. Processing is carried out to provide the website securely and reliably on the basis of our legitimate interests under Article 6(1)(f) GDPR.">Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf verarbeitet GitHub insbesondere die IP-Adresse sowie technische Verbindungs- und Nutzungsdaten. GitHub gibt an, IP-Adressen von Besuchern aus Sicherheitsgründen zu protokollieren und zu speichern. Die Verarbeitung erfolgt zur sicheren und zuverlässigen Bereitstellung der Website auf Grundlage unseres berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
+            <h3 data-de="3. Sprachauswahl" data-en="3. Language selection">3. Sprachauswahl</h3>
+            <p data-de="Die ausgewählte Sprache wird ausschließlich lokal im Browser gespeichert. Dabei werden keine Daten an uns übermittelt. Sie können diese Einstellung über die Website-Daten Ihres Browsers löschen." data-en="Your language preference is stored locally in your browser only. No data is transmitted to us for this purpose. You can delete this setting through your browser's website data controls.">Die ausgewählte Sprache wird ausschließlich lokal im Browser gespeichert. Dabei werden keine Daten an uns übermittelt. Sie können diese Einstellung über die Website-Daten Ihres Browsers löschen.</p>
+            <h3 data-de="4. Anfragen und Kontaktdaten" data-en="4. Enquiries and contact details">4. Anfragen und Kontaktdaten</h3>
+            <p data-de="Das derzeitige Testformular versendet noch keine Daten. Wenn Sie uns per E-Mail oder Telefon kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage und zur Durchführung vorvertraglicher Maßnahmen gemäß Art. 6 Abs. 1 lit. b DSGVO. Die Daten werden gelöscht, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen." data-en="The current test form does not transmit any data. If you contact us by email or phone, we process your details to respond to your enquiry and take pre-contractual steps under Article 6(1)(b) GDPR. The data will be deleted once the enquiry has been completed unless statutory retention obligations apply.">Das derzeitige Testformular versendet noch keine Daten. Wenn Sie uns per E-Mail oder Telefon kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage und zur Durchführung vorvertraglicher Maßnahmen gemäß Art. 6 Abs. 1 lit. b DSGVO. Die Daten werden gelöscht, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+            <h3 data-de="5. Ihre Rechte" data-en="5. Your rights">5. Ihre Rechte</h3>
+            <p data-de="Sie haben nach Maßgabe der DSGVO insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem können Sie sich bei einer Datenschutzaufsichtsbehörde beschweren." data-en="Subject to the GDPR, you have rights including access, rectification, erasure, restriction of processing, data portability and objection. You may also lodge a complaint with a data protection supervisory authority.">Sie haben nach Maßgabe der DSGVO insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem können Sie sich bei einer Datenschutzaufsichtsbehörde beschweren.</p>
+            <h3 data-de="6. Cookies und Analyse" data-en="6. Cookies and analytics">6. Cookies und Analyse</h3>
+            <p data-de="Wir setzen derzeit keine eigenen Cookies und keine Analyse- oder Werbedienste ein." data-en="We currently use no first-party cookies, analytics or advertising services.">Wir setzen derzeit keine eigenen Cookies und keine Analyse- oder Werbedienste ein.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="brand footer-brand"><span class="brand-mark">⌂</span><span>Bungalow <b>in Winterfeld</b></span></div>
+      <p data-de="Eine ruhige Auszeit oder ein angenehmes Zuhause auf Zeit." data-en="A peaceful break or a comfortable temporary home.">Eine ruhige Auszeit oder ein angenehmes Zuhause auf Zeit.</p>
+      <div><a href="#impressum" data-de="Impressum" data-en="Legal notice">Impressum</a><a href="#datenschutz" data-de="Datenschutz" data-en="Privacy">Datenschutz</a><a href="#preise" data-de="Preise &amp; Bedingungen" data-en="Prices &amp; conditions">Preise &amp; Bedingungen</a></div>
+      <small data-de="© 2026 Ferienbungalow · Testseite mit Beispieldaten" data-en="© 2026 Holiday bungalow · Test page with sample details">© 2026 Ferienbungalow · Testseite mit Beispieldaten</small>
+    </footer>
+    <script>
+      (() => {
+        const monthNames = {
+          de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+          en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        };
+        let language = localStorage.getItem('bungalow-language') === 'en' ? 'en' : 'de';
+        let changingMonthLabel = false;
+        const carouselImage = document.getElementById('inside-carousel-image');
+        const carouselStatus = document.getElementById('carousel-status');
+        const carouselDots = document.getElementById('carousel-dots');
+        const carouselImages = [
+          'images/bungalow_inside1.jpeg',
+          'images/bungalow_inside2.jpeg',
+          'images/bungalow_inside3.jpeg',
+          'images/bungalow_inside4.jpeg',
+          'images/bungalow_inside5.jpeg',
+          'images/bungalow_inside6.jpeg'
+        ];
+        const carouselTotal = carouselImages.length;
+        let carouselIndex = 0;
+
+        function updateCarousel() {
+          if (!carouselImage || !carouselStatus || !carouselDots) return;
+          const number = carouselIndex + 1;
+          const expectedSource = carouselImages[carouselIndex];
+          if (!carouselImage.src.endsWith(expectedSource)) carouselImage.src = expectedSource;
+          carouselImage.alt = language === 'de'
+            ? `Innenaufnahme ${number} von ${carouselTotal}`
+            : `Interior photo ${number} of ${carouselTotal}`;
+          carouselStatus.textContent = `${number} / ${carouselTotal}`;
+          carouselDots.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+            dot.setAttribute('aria-current', String(index === carouselIndex));
+            dot.setAttribute('aria-label', language === 'de' ? `Bild ${index + 1}` : `Photo ${index + 1}`);
+          });
+        }
+
+        function showCarouselImage(index) {
+          carouselIndex = (index + carouselTotal) % carouselTotal;
+          updateCarousel();
+        }
+
+        if (carouselDots) {
+          for (let index = 0; index < carouselTotal; index += 1) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `Bild ${index + 1}`);
+            dot.addEventListener('click', () => showCarouselImage(index));
+            carouselDots.appendChild(dot);
+          }
+        }
+
+        document.getElementById('carousel-previous')?.addEventListener('click', () => showCarouselImage(carouselIndex - 1));
+        document.getElementById('carousel-next')?.addEventListener('click', () => showCarouselImage(carouselIndex + 1));
+
+        const carousel = document.getElementById('inside-carousel');
+        let touchStartX = 0;
+        carousel?.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+        carousel?.addEventListener('touchend', event => {
+          const distance = event.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(distance) > 45) showCarouselImage(carouselIndex + (distance < 0 ? 1 : -1));
+        }, { passive: true });
+
+        function updateMonthLabel() {
+          const label = document.getElementById('month-label');
+          if (!label || changingMonthLabel || !label.textContent.trim()) return;
+          const text = label.textContent.trim();
+          let monthIndex = -1;
+          for (const names of Object.values(monthNames)) {
+            const found = names.findIndex(name => text.startsWith(name + ' '));
+            if (found !== -1) { monthIndex = found; break; }
+          }
+          const year = (text.match(/\d{4}/) || [''])[0];
+          if (monthIndex !== -1 && year) {
+            const newText = `${monthNames[language][monthIndex]} ${year}`;
+            if (label.textContent.trim() !== newText) {
+              changingMonthLabel = true;
+              label.textContent = newText;
+              changingMonthLabel = false;
+            }
+          }
+        }
+
+        function setLanguage(nextLanguage) {
+          language = nextLanguage;
+          document.documentElement.lang = language;
+          localStorage.setItem('bungalow-language', language);
+          document.querySelectorAll('[data-de][data-en]').forEach(element => {
+            element.textContent = element.dataset[language];
+          });
+          document.querySelectorAll('[data-placeholder-de][data-placeholder-en]').forEach(element => {
+            element.placeholder = element.dataset[language === 'de' ? 'placeholderDe' : 'placeholderEn'];
+          });
+          document.querySelectorAll('[data-aria-de][data-aria-en]').forEach(element => {
+            element.setAttribute('aria-label', element.dataset[language === 'de' ? 'ariaDe' : 'ariaEn']);
+          });
+          document.querySelectorAll('[data-alt-de][data-alt-en]').forEach(element => {
+            element.alt = element.dataset[language === 'de' ? 'altDe' : 'altEn'];
+          });
+          document.querySelectorAll('.language-button').forEach(button => {
+            button.setAttribute('aria-pressed', String(button.dataset.language === language));
+          });
+          updateCarousel();
+          document.title = language === 'de' ? 'Ferienbungalow in Winterfeld' : 'Holiday bungalow in Winterfeld';
+          document.querySelector('meta[name="description"]').content = language === 'de'
+            ? 'Ruhiger Ferienbungalow in der Altmark für Urlaubsgäste, Monteure und längere Projektaufenthalte.'
+            : 'Quiet holiday bungalow in the Altmark for holidaymakers, tradespeople and longer project stays.';
+          updateMonthLabel();
+        }
+
+        document.querySelectorAll('.language-button').forEach(button => {
+          button.addEventListener('click', () => setLanguage(button.dataset.language));
+        });
+        const monthLabel = document.getElementById('month-label');
+        if (monthLabel) new MutationObserver(updateMonthLabel).observe(monthLabel, { childList: true, characterData: true, subtree: true });
+        setLanguage(language);
+      })();
+    </script>
+  </body>
+</html>
