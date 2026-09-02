@@ -13,46 +13,57 @@
       .language-button[aria-pressed="true"] { background: #244b3a; color: #fff; border-color: #244b3a; }
       .site-header > .brand { margin-right: clamp(1.5rem, 3vw, 3rem); flex-shrink: 0; }
       .site-header nav { display: flex; align-items: center; gap: clamp(.85rem, 1.5vw, 1.4rem); }
-      .inside-carousel { position: relative; max-width: 1160px; margin: auto; overflow: hidden; background: #d8d1c2; box-shadow: 0 14px 44px rgba(30,50,40,.12); }
-      .inside-carousel-image { display: block; width: 100%; height: clamp(360px, 58vw, 680px); object-fit: contain; background: #eee9df; }
+      .photo-carousel { position: relative; margin: 0; overflow: hidden; background: #d8d1c2; box-shadow: 0 14px 44px rgba(30,50,40,.12); }
+      .inside-carousel { max-width: 1160px; margin: auto; }
+      .carousel-image { display: block; width: 100%; background: #eee9df; }
+      .inside-carousel .carousel-image { height: clamp(360px, 58vw, 680px); object-fit: contain; }
       .carousel-button { position: absolute; z-index: 2; top: 50%; width: 48px; height: 48px; border: 0; border-radius: 50%; background: rgba(24,49,43,.82); color: #fff; font-size: 25px; cursor: pointer; transform: translateY(-50%); }
       .carousel-button:hover, .carousel-button:focus-visible { background: #18312b; }
       .carousel-button.previous { left: 18px; }
       .carousel-button.next { right: 18px; }
-      .carousel-status { position: absolute; z-index: 2; right: 18px; bottom: 16px; margin: 0; padding: .45rem .75rem; border-radius: 999px; background: rgba(24,49,43,.82); color: #fff; font-size: 12px; font-weight: 800; }
-      .carousel-dots { display: flex; justify-content: center; gap: 9px; padding: 15px; background: #fff; }
+      .carousel-status { position: absolute; z-index: 2; top: 16px; right: 18px; margin: 0; padding: .45rem .75rem; border-radius: 999px; background: rgba(24,49,43,.82); color: #fff; font-size: 12px; font-weight: 800; }
+      .carousel-caption { min-height: 3.2rem; margin: 0; padding: .85rem 1rem; background: #fff; color: #34483f; text-align: center; font-weight: 700; }
+      .carousel-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; padding: 15px; background: #fff; }
       .carousel-dot { width: 11px; height: 11px; padding: 0; border: 1px solid #244b3a; border-radius: 50%; background: transparent; cursor: pointer; }
       .carousel-dot[aria-current="true"] { background: #244b3a; }
-      /* Real images must stay inside their own section instead of using their
-         intrinsic dimensions to enlarge or overlap the following content. */
-      .info-split { align-items: stretch; overflow: hidden; }
-      .info-split > img.info-visual {
-        display: block;
+      /* Desktop: picture beside text. Mobile: heading, picture, then body. */
+      .info-split { align-items: stretch; overflow: hidden; grid-template-rows: auto 1fr; }
+      .info-heading, .info-body { grid-column: 2; max-width: 610px; padding-left: clamp(30px, 6vw, 90px); padding-right: clamp(30px, 6vw, 90px); }
+      .info-heading { grid-row: 1; padding-top: 100px; align-self: end; }
+      .info-heading h2 { margin-bottom: 22px; }
+      .info-body { grid-row: 2; padding-bottom: 100px; }
+      .info-body > p { color: var(--muted); line-height: 1.75; }
+      .info-split > .info-carousel {
+        display: flex;
+        flex-direction: column;
+        grid-column: 1;
+        grid-row: 1 / 3;
         width: calc(100% + clamp(24px, 7vw, 110px));
         max-width: none;
-        height: 100%;
-        min-height: 550px;
         margin-left: calc(clamp(24px, 7vw, 110px) * -1);
-        object-fit: cover;
       }
-      .info-split.reverse > img.info-visual {
+      .info-carousel .carousel-image { flex: 1 1 auto; height: 0; min-height: 550px; object-fit: cover; }
+      .info-split.reverse .info-heading, .info-split.reverse .info-body { grid-column: 1; }
+      .info-split.reverse > .info-carousel {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        order: 0;
         width: calc(100% + clamp(24px, 7vw, 110px));
         margin: 0 calc(clamp(24px, 7vw, 110px) * -1) 0 0;
       }
       .distance-list > div { display: grid; grid-template-columns: minmax(115px, 135px) minmax(0, 1fr); column-gap: 1.2rem; align-items: start; padding-right: 1rem; }
       .distance-list > div > b, .distance-list > div > span { min-width: 0; }
-      /* The four lower information blocks share the same left/right columns. */
-      .price-section,
-      .availability,
       .inquiry { grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); align-items: start; }
-      .price-section { display: grid; gap: clamp(42px, 8vw, 120px); background: #f6f3ec; }
+      .booking-overview { background: #f6f3ec; }
       .price-details { min-width: 0; }
-      .price-table-wrap { width: 100%; max-width: 900px; margin: 0; overflow-x: auto; border-radius: 1rem; box-shadow: 0 8px 28px rgba(30,50,40,.08); }
+      .booking-overview > .price-details { max-width: 1160px; margin: 0 auto; }
+      .price-table-wrap { width: 100%; max-width: 1160px; margin: 0; overflow-x: auto; border-radius: 1rem; box-shadow: 0 8px 28px rgba(30,50,40,.08); }
       .price-table { width: 100%; min-width: 620px; border-collapse: collapse; background: #fff; }
       .price-table th, .price-table td { padding: .9rem 1rem; text-align: center; border-bottom: 1px solid #e4e0d8; }
       .price-table th { background: #244b3a; color: #fff; }
       .price-table th:first-child, .price-table td:first-child { text-align: left; font-weight: 700; }
       .price-note { max-width: 900px; margin: 1rem auto 0; }
+      .availability-inline { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); align-items: start; gap: clamp(42px, 8vw, 120px); max-width: 1160px; margin: 0 auto 70px; padding-bottom: 70px; border-bottom: 1px solid #d9ddcf; }
       .legal-section { background: #fffdf8; }
       .legal-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; align-items: start; }
       .legal-card { padding: clamp(25px, 4vw, 45px); border: 1px solid #d9ddcf; background: #fff; }
@@ -67,23 +78,31 @@
         .site-header > .brand { margin-right: 1rem; }
         .language-switcher { order: 2; }
         .site-header nav { order: 3; width: 100%; margin-top: .8rem; padding-top: .7rem; gap: .9rem; }
-        .price-section, .availability, .inquiry { grid-template-columns: 1fr; }
+        .inquiry, .availability-inline { grid-template-columns: 1fr; }
+        .availability-inline { gap: 35px; }
         .price-table-wrap { max-width: none; }
         .legal-grid { grid-template-columns: 1fr; }
-        .info-split > img.info-visual,
-        .info-split.reverse > img.info-visual { width: auto; height: 410px; min-height: 410px; margin: 0 calc(clamp(24px, 7vw, 110px) * -1); }
+        .info-split, .info-split.reverse { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+        .info-split .info-heading, .info-split.reverse .info-heading { grid-column: 1; grid-row: 1; max-width: none; padding: 70px 0 24px; }
+        .info-split > .info-carousel,
+        .info-split.reverse > .info-carousel { grid-column: 1; grid-row: 2; order: 0; width: auto; height: auto; margin: 0 calc(clamp(24px, 7vw, 110px) * -1); }
+        .info-carousel .carousel-image { flex: none; height: 410px; min-height: 410px; }
+        .info-split .info-body, .info-split.reverse .info-body { grid-column: 1; grid-row: 3; max-width: none; padding: 35px 0 70px; }
       }
       @media (max-width: 600px) {
         .language-button { padding: .38rem .55rem; }
         .language-button .language-name { display: none; }
         .distance-list > div { grid-template-columns: 1fr; row-gap: .35rem; padding-right: .75rem; }
-        .inside-carousel-image { height: 68vw; min-height: 260px; max-height: 480px; }
+        .inside-carousel .carousel-image { height: 68vw; min-height: 260px; max-height: 480px; }
         .carousel-button { width: 42px; height: 42px; }
         .carousel-button.previous { left: 10px; }
         .carousel-button.next { right: 10px; }
-        .carousel-status { right: 10px; bottom: 54px; }
-        .info-split > img.info-visual,
-        .info-split.reverse > img.info-visual { width: auto; height: 330px; min-height: 330px; margin: 0 -20px; }
+        .carousel-status { top: 10px; right: 10px; }
+        .info-split .info-heading, .info-split.reverse .info-heading { padding: 65px 0 20px; }
+        .info-split > .info-carousel,
+        .info-split.reverse > .info-carousel { width: auto; margin: 0 -20px; }
+        .info-carousel .carousel-image { height: 330px; min-height: 330px; }
+        .info-split .info-body, .info-split.reverse .info-body { padding: 30px 0 65px; }
       }
     </style>
   </head>
@@ -94,11 +113,10 @@
         <span>Bungalow <b>in Winterfeld</b></span>
       </a>
       <nav aria-label="Hauptnavigation">
-        <a href="#bungalow" data-de="Der Bungalow" data-en="The bungalow">Der Bungalow</a>
-        <a href="#preise" data-de="Preise" data-en="Prices">Preise</a>
+        <a href="#inside-carousel" data-de="Der Bungalow" data-en="The bungalow">Der Bungalow</a>
+        <a href="#buchung" data-de="Preise &amp; Belegung" data-en="Prices &amp; availability">Preise &amp; Belegung</a>
         <a href="#garten" data-de="Garten" data-en="Garden">Garten</a>
-        <a href="#umgebung" data-de="Umgebung" data-en="Surroundings">Umgebung</a>
-        <a href="#kalender" data-de="Belegung" data-en="Availability">Belegung</a>
+        <a href="#umgebung" data-de="Ausflüge" data-en="Day trips">Ausflüge</a>
         <a class="nav-cta" href="#anfrage" data-de="Anfragen" data-en="Enquire">Anfragen</a>
       </nav>
       <div class="language-switcher" aria-label="Sprache wählen">
@@ -113,10 +131,9 @@
         <div class="hero-copy">
           <p class="eyebrow" data-de="Altmark · Ruhe · Entspannung · Zuhause auf Zeit" data-en="Altmark · Peace · Relaxation · A home away from home">Altmark · Ruhe · Entspannung · Zuhause auf Zeit</p>
           <h1 data-de="Ihr kleiner Rückzugsort im Grünen" data-en="Your peaceful retreat in the countryside">Ihr kleiner Rückzugsort im Grünen</h1>
-          <p class="lead" data-de="Ob entspannter Landurlaub in der Altmark oder längerer Arbeitseinsatz in der Umgebung: Der ruhig hinter dem Wohnhaus gelegene Bungalow bietet einen angenehmen Rückzugsort für bis zu vier Personen. Zusätzliche Schlafmöglichkeiten sind auf Anfrage vorhanden." data-en="Whether you are planning a relaxing countryside holiday in the Altmark or a longer work assignment nearby, this quiet bungalow behind the main house is a comfortable retreat for up to four guests. Additional sleeping arrangements are available on request.">Ob entspannter Landurlaub in der Altmark oder längerer Arbeitseinsatz in der Umgebung: Der ruhig hinter dem Wohnhaus gelegene Bungalow bietet einen angenehmen Rückzugsort für bis zu vier Personen. Zusätzliche Schlafmöglichkeiten sind auf Anfrage vorhanden.</p>
+          <p class="lead" data-de="Ob entspannter Landurlaub in der Altmark oder längerer Arbeitseinsatz in der Umgebung: Der sehr ruhig gelegene Bungalow bietet einen angenehmen Rückzugsort für bis zu vier Personen. Zusätzliche Schlafmöglichkeiten sind auf Anfrage vorhanden." data-en="Whether you are planning a relaxing countryside holiday in the Altmark or a longer work assignment nearby, this very quietly situated bungalow is a comfortable retreat for up to four guests. Additional sleeping arrangements are available on request.">Ob entspannter Landurlaub in der Altmark oder längerer Arbeitseinsatz in der Umgebung: Der sehr ruhig gelegene Bungalow bietet einen angenehmen Rückzugsort für bis zu vier Personen. Zusätzliche Schlafmöglichkeiten sind auf Anfrage vorhanden.</p>
           <div class="hero-actions">
             <a class="primary-button" href="#anfrage" data-de="Zeitraum anfragen" data-en="Request your dates">Zeitraum anfragen</a>
-            <a class="text-link" href="#bungalow"><span data-de="Bungalow ansehen" data-en="View the bungalow">Bungalow ansehen</span> <span>↓</span></a>
           </div>
           <ul class="quick-facts" aria-label="Kurzübersicht">
             <li><b>4</b><span data-de="reguläre Schlafplätze" data-en="regular beds">reguläre Schlafplätze</span></li>
@@ -146,27 +163,34 @@
           </article>
         </div>
         <div class="amenities">
-          <article><span>⌂</span><h3 data-de="Großzügig wohnen" data-en="Spacious accommodation">Großzügig wohnen</h3><p data-de="Der Bungalow verfügt über ein separates Schlafzimmer, ein Bad, eine Abstellkammer sowie einen großen, offenen Koch- und Wohnbereich." data-en="The bungalow has a separate bedroom, bathroom, storage room and a large open-plan kitchen and living area.">Der Bungalow verfügt über ein separates Schlafzimmer, ein Bad, eine Abstellkammer sowie einen großen, offenen Koch- und Wohnbereich.</p></article>
+          <article><span>⌂</span><h3 data-de="Großzügig wohnen" data-en="Spacious accommodation">Großzügig wohnen</h3><p data-de="Der Bungalow verfügt über ein separates Schlafzimmer, ein Bad, eine Abstellkammer sowie einen großen, offenen Koch- und Wohnbereich. Im Winter wird zusätzlich mit dem Kamin geheizt." data-en="The bungalow has a separate bedroom, bathroom, storage room and a large open-plan kitchen and living area. In winter, the fireplace provides additional heating.">Der Bungalow verfügt über ein separates Schlafzimmer, ein Bad, eine Abstellkammer sowie einen großen, offenen Koch- und Wohnbereich. Im Winter wird zusätzlich mit dem Kamin geheizt.</p></article>
           <article><span>☕</span><h3 data-de="Vollständig ausgestattete Küche" data-en="Fully equipped kitchen">Vollständig ausgestattete Küche</h3><p data-de="Kühlschrank, Kaffeemaschine, Geschirrspüler, Backofen und Herd sind vorhanden – praktisch für Urlaub und längere Aufenthalte." data-en="A fridge, coffee machine, dishwasher, oven and hob are provided, making the bungalow practical for holidays and longer stays.">Kühlschrank, Kaffeemaschine, Geschirrspüler, Backofen und Herd sind vorhanden – praktisch für Urlaub und längere Aufenthalte.</p></article>
           <article><span>▤</span><h3 data-de="Flexible Schlafplätze" data-en="Flexible sleeping arrangements">Flexible Schlafplätze</h3><p data-de="Im Schlafzimmer stehen zwei Betten, die zusammengeschoben werden können. Die Schlafcouch im Wohnraum ist 1,60 m breit. Ein Klappbett und ein Luftbett sind auf Anfrage verfügbar." data-en="The bedroom has two beds that can be pushed together. The sofa bed in the living area is 1.60 m wide. A folding bed and an air bed are available on request.">Im Schlafzimmer stehen zwei Betten, die zusammengeschoben werden können. Die Schlafcouch im Wohnraum ist 1,60&nbsp;m breit. Ein Klappbett und ein Luftbett sind auf Anfrage verfügbar.</p></article>
-          <article><span>♨</span><h3 data-de="Kamin für kalte Tage" data-en="Fireplace for colder days">Kamin für kalte Tage</h3><p data-de="In der kalten Jahreszeit muss zusätzlich mit Holz geheizt werden. Der Kamin wird regelmäßig gewartet und wurde bisher immer problemlos genutzt. Wenn Sie unsicher sind, erklären wir Ihnen die Bedienung gerne vorab." data-en="During the colder months, additional heating with wood is required. The fireplace is serviced regularly and has always worked without problems. If you are unsure how to use it, we will gladly explain it beforehand.">In der kalten Jahreszeit muss zusätzlich mit Holz geheizt werden. Der Kamin wird regelmäßig gewartet und wurde bisher immer problemlos genutzt. Wenn Sie unsicher sind, erklären wir Ihnen die Bedienung gerne vorab.</p></article>
-          <article><span>♧</span><h3 data-de="Besonders ruhig gelegen" data-en="A particularly quiet location">Besonders ruhig gelegen</h3><p data-de="Geschützt hinter dem Wohnhaus finden Sie viel Ruhe und Privatsphäre – ideal zum Abschalten oder zum Erholen nach der Arbeit." data-en="Sheltered behind the main house, the bungalow offers peace and privacy – ideal for unwinding or relaxing after work.">Geschützt hinter dem Wohnhaus finden Sie viel Ruhe und Privatsphäre – ideal zum Abschalten oder zum Erholen nach der Arbeit.</p></article>
-          <article><span>↟</span><h3 data-de="Direkt loswandern" data-en="Walk straight from the property">Direkt loswandern</h3><p data-de="Entspannte Spaziergänge und Wanderungen beginnen direkt am Grundstück. Innerhalb weniger Minuten sind Sie aus dem Dorf und mitten in der ruhigen Landschaft." data-en="Relaxing walks and hikes start directly from the property. Within a few minutes you can leave the village behind and enjoy the peaceful countryside.">Entspannte Spaziergänge und Wanderungen beginnen direkt am Grundstück. Innerhalb weniger Minuten sind Sie aus dem Dorf und mitten in der ruhigen Landschaft.</p></article>
         </div>
-        <div class="inside-carousel" id="inside-carousel" aria-label="Innenaufnahmen des Bungalows" data-aria-de="Innenaufnahmen des Bungalows" data-aria-en="Interior photos of the bungalow">
-          <img class="inside-carousel-image" id="inside-carousel-image" src="images/bungalow_inside1.jpeg" alt="Innenaufnahme 1 von 6" loading="lazy" decoding="async">
-          <button class="carousel-button previous" id="carousel-previous" type="button" aria-label="Vorheriges Bild" data-aria-de="Vorheriges Bild" data-aria-en="Previous photo">←</button>
-          <button class="carousel-button next" id="carousel-next" type="button" aria-label="Nächstes Bild" data-aria-de="Nächstes Bild" data-aria-en="Next photo">→</button>
-          <p class="carousel-status" id="carousel-status" aria-live="polite">1 / 6</p>
-          <div class="carousel-dots" id="carousel-dots" aria-label="Bild auswählen" data-aria-de="Bild auswählen" data-aria-en="Choose photo"></div>
-        </div>
+        <figure class="photo-carousel inside-carousel" id="inside-carousel" data-carousel="inside" aria-label="Innenaufnahmen des Bungalows" data-aria-de="Innenaufnahmen des Bungalows" data-aria-en="Interior photos of the bungalow">
+          <img class="carousel-image" src="images/bungalow_inside1.jpeg" alt="Wohnbereich mit Couch" loading="lazy" decoding="async">
+          <button class="carousel-button previous" type="button" aria-label="Vorheriges Bild" data-aria-de="Vorheriges Bild" data-aria-en="Previous photo">←</button>
+          <button class="carousel-button next" type="button" aria-label="Nächstes Bild" data-aria-de="Nächstes Bild" data-aria-en="Next photo">→</button>
+          <p class="carousel-status" aria-live="polite">1 / 9</p>
+          <figcaption class="carousel-caption" aria-live="polite">Wohnbereich mit Couch</figcaption>
+          <div class="carousel-dots" aria-label="Bild auswählen" data-aria-de="Bild auswählen" data-aria-en="Choose photo"></div>
+        </figure>
       </section>
 
       <section class="info-split section" id="garten">
-        <img class="info-visual garden-visual" src="images/garden1.jpeg" alt="Garten des Ferienbungalows" data-alt-de="Garten des Ferienbungalows" data-alt-en="Garden of the holiday bungalow" loading="lazy" decoding="async" fetchpriority="low">
-        <div class="info-copy">
-          <p class="eyebrow" data-de="Nutzung des Gartens" data-en="Using the garden">Nutzung des Gartens</p>
+        <div class="info-heading">
+          <p class="eyebrow" data-de="Garten" data-en="Garden">Garten</p>
           <h2 data-de="Viel Platz unter freiem Himmel" data-en="Plenty of space outdoors">Viel Platz unter freiem Himmel</h2>
+        </div>
+        <figure class="photo-carousel info-carousel" data-carousel="garden" aria-label="Gartenfotos" data-aria-de="Gartenfotos" data-aria-en="Garden photos">
+          <img class="carousel-image" src="images/garten1.jpeg" alt="Vorderansicht und Südseite" loading="lazy" decoding="async">
+          <button class="carousel-button previous" type="button" aria-label="Vorheriges Bild" data-aria-de="Vorheriges Bild" data-aria-en="Previous photo">←</button>
+          <button class="carousel-button next" type="button" aria-label="Nächstes Bild" data-aria-de="Nächstes Bild" data-aria-en="Next photo">→</button>
+          <p class="carousel-status" aria-live="polite">1 / 10</p>
+          <figcaption class="carousel-caption" aria-live="polite">Vorderansicht/Südseite</figcaption>
+          <div class="carousel-dots" aria-label="Bild auswählen" data-aria-de="Bild auswählen" data-aria-en="Choose photo"></div>
+        </figure>
+        <div class="info-body">
           <p data-de="Der Garten bietet Urlaubsgästen einen entspannten Platz im Grünen und Monteuren einen ruhigen Feierabend unter freiem Himmel. Bitte beachten Sie dabei die folgenden Hinweise:" data-en="The garden offers holiday guests a relaxing place in the countryside and tradespeople a peaceful outdoor space after work. Please note the following:">Der Garten bietet Urlaubsgästen einen entspannten Platz im Grünen und Monteuren einen ruhigen Feierabend unter freiem Himmel. Bitte beachten Sie dabei die folgenden Hinweise:</p>
           <ul class="check-list">
             <li data-de="Wenn Sie zur richtigen Jahreszeit bei uns sind, dürfen Sie Äpfel, Birnen, Pflaumen und Kirschen für den Eigenbedarf pflücken." data-en="If you stay at the right time of year, you are welcome to pick apples, pears, plums and cherries for your own use.">Wenn Sie zur richtigen Jahreszeit bei uns sind, dürfen Sie Äpfel, Birnen, Pflaumen und Kirschen für den Eigenbedarf pflücken.</li>
@@ -184,14 +208,23 @@
       </section>
 
       <section class="info-split section reverse" id="umgebung">
-        <img class="info-visual area-visual" src="images/exterior_view1.jpeg" alt="Ruhige Lage des Ferienbungalows" data-alt-de="Ruhige Lage des Ferienbungalows" data-alt-en="Quiet location of the holiday bungalow" loading="lazy" decoding="async" fetchpriority="low">
-        <div class="info-copy">
-          <p class="eyebrow" data-de="In der Nähe" data-en="Nearby">In der Nähe</p>
+        <div class="info-heading">
+          <p class="eyebrow" data-de="Ausflüge" data-en="Day trips">Ausflüge</p>
           <h2 data-de="Die Altmark entdecken oder nach Feierabend abschalten" data-en="Explore the Altmark or unwind after work">Die Altmark entdecken oder nach Feierabend abschalten</h2>
+        </div>
+        <figure class="photo-carousel info-carousel" data-carousel="activities" aria-label="Fotos von Ausflugszielen" data-aria-de="Fotos von Ausflugszielen" data-aria-en="Photos of local attractions">
+          <img class="carousel-image" src="images/activities1.jpeg" alt="Liegestuhl" loading="lazy" decoding="async">
+          <button class="carousel-button previous" type="button" aria-label="Vorheriges Bild" data-aria-de="Vorheriges Bild" data-aria-en="Previous photo">←</button>
+          <button class="carousel-button next" type="button" aria-label="Nächstes Bild" data-aria-de="Nächstes Bild" data-aria-en="Next photo">→</button>
+          <p class="carousel-status" aria-live="polite">1 / 7</p>
+          <figcaption class="carousel-caption" aria-live="polite">Liegestuhl</figcaption>
+          <div class="carousel-dots" aria-label="Bild auswählen" data-aria-de="Bild auswählen" data-aria-en="Choose photo"></div>
+        </figure>
+        <div class="info-body">
           <p data-de="Die ländliche Umgebung lädt zu Spaziergängen, Wanderungen und erholsamen Ausflügen ein. Gleichzeitig finden Sie im Ort alles Wichtige für den täglichen Bedarf." data-en="The rural surroundings are ideal for walks, hikes and relaxing day trips. At the same time, the village provides everything you need for daily life.">Die ländliche Umgebung lädt zu Spaziergängen, Wanderungen und erholsamen Ausflügen ein. Gleichzeitig finden Sie im Ort alles Wichtige für den täglichen Bedarf.</p>
           <div class="distance-list">
-            <div><b data-de="Im Ort" data-en="In the village">Im Ort</b><span data-de="Kleiner Supermarkt, Bäckerei, Fleischerei, Tankstelle und Kfz-Werkstatt" data-en="Small supermarket, bakery, butcher, petrol station and car repair shop">Kleiner Supermarkt, Bäckerei, Fleischerei, Tankstelle und Kfz-Werkstatt</span></div>
-            <div><b data-de="Im Ort" data-en="In the village">Im Ort</b><span data-de="Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben" data-en="Hoppstall riding stables and a Romanesque fieldstone church with a historic megalithic tomb beside it">Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben</span></div>
+            <div><b data-de="Versorgung vor Ort" data-en="Local amenities">Versorgung vor Ort</b><span data-de="Supermarkt, Bäckerei, Fleischerei und Tankstelle" data-en="Supermarket, bakery, butcher and petrol station">Supermarkt, Bäckerei, Fleischerei und Tankstelle</span></div>
+            <div><b data-de="Sehenswertes im Ort" data-en="Local sights">Sehenswertes im Ort</b><span data-de="Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben" data-en="Hoppstall riding stables and a Romanesque fieldstone church with a historic megalithic tomb beside it">Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben</span></div>
             <div><b data-de="Nachbarort" data-en="Neighbouring village">Nachbarort</b><span data-de="Waldbad für eine Abkühlung an warmen Tagen" data-en="Woodland swimming pool for a refreshing dip on warm days">Waldbad für eine Abkühlung an warmen Tagen</span></div>
             <div><b data-de="Ausflugsziel" data-en="Day trip">Ausflugsziel</b><span data-de="Der Arendsee, der größte natürliche See Sachsen-Anhalts und mit rund 50 m Tiefe einer der tiefsten Seen Norddeutschlands" data-en="Lake Arendsee, the largest natural lake in Saxony-Anhalt and, at around 50 m deep, one of northern Germany's deepest lakes">Der Arendsee, der größte natürliche See Sachsen-Anhalts und mit rund 50&nbsp;m Tiefe einer der tiefsten Seen Norddeutschlands</span></div>
           </div>
@@ -199,11 +232,29 @@
         </div>
       </section>
 
-      <section class="section price-section" id="preise">
+      <section class="section booking-overview" id="buchung">
+        <div class="availability-inline" id="kalender">
         <div class="section-heading compact">
-          <p class="eyebrow" data-de="Preise" data-en="Prices">Preise</p>
-          <h2 data-de="Übersichtliche Gesamtpreise" data-en="Clear total prices">Übersichtliche Gesamtpreise</h2>
-          <p data-de="Die Tabelle zeigt gerundete Gesamtpreise für häufige Aufenthaltsdauern. Längere Aufenthalte werden pro Nacht günstiger." data-en="The table shows rounded total prices for common lengths of stay. Longer stays cost less per night.">Die Tabelle zeigt gerundete Gesamtpreise für häufige Aufenthaltsdauern. Längere Aufenthalte werden pro Nacht günstiger.</p>
+          <p class="eyebrow" data-de="Buchung" data-en="Booking">Buchung</p>
+          <h2 data-de="Belegung prüfen" data-en="Check availability">Belegung prüfen</h2>
+          <p data-de="Rot markierte Tage sind bereits belegt. Mit den Pfeilen können Sie zwischen den Monaten wechseln." data-en="Dates marked in red are already booked. Use the arrows to move between months.">Rot markierte Tage sind bereits belegt. Mit den Pfeilen können Sie zwischen den Monaten wechseln.</p>
+        </div>
+        <div class="calendar-card">
+          <div class="calendar-heading">
+            <button id="previous-month" type="button" aria-label="Vorheriger Monat" data-aria-de="Vorheriger Monat" data-aria-en="Previous month">←</button>
+            <h3 id="month-label"></h3>
+            <button id="next-month" type="button" aria-label="Nächster Monat" data-aria-de="Nächster Monat" data-aria-en="Next month">→</button>
+          </div>
+          <div class="calendar-grid weekdays" aria-hidden="true">
+            <span data-de="Mo" data-en="Mon">Mo</span><span data-de="Di" data-en="Tue">Di</span><span data-de="Mi" data-en="Wed">Mi</span><span data-de="Do" data-en="Thu">Do</span><span data-de="Fr" data-en="Fri">Fr</span><span data-de="Sa" data-en="Sat">Sa</span><span data-de="So" data-en="Sun">So</span>
+          </div>
+          <div class="calendar-grid" id="calendar-days" role="grid" aria-label="Belegungskalender" data-aria-de="Belegungskalender" data-aria-en="Availability calendar"></div>
+          <div class="legend">
+            <span><i class="dot available-dot"></i><span data-de="frei" data-en="available">frei</span></span>
+            <span><i class="dot booked-dot"></i><span data-de="belegt" data-en="booked">belegt</span></span>
+          </div>
+          <p class="calendar-note" data-de="Der Kalender zeigt eine unverbindliche Übersicht. Die Buchung wird erst nach persönlicher Bestätigung verbindlich." data-en="The calendar provides a non-binding overview. A booking is only confirmed after you receive our personal confirmation.">Der Kalender zeigt eine unverbindliche Übersicht. Die Buchung wird erst nach persönlicher Bestätigung verbindlich.</p>
+        </div>
         </div>
         <div class="price-details">
           <div class="price-table-wrap">
@@ -226,30 +277,6 @@
             </table>
           </div>
           <p class="price-note" data-de="Die Preisbeispiele enthalten die jeweils eingeplanten Reinigungskosten. Für andere Aufenthaltsdauern erstellen wir Ihnen gerne ein passendes Angebot." data-en="These sample prices include the scheduled cleaning costs. We will gladly provide an individual quote for other lengths of stay.">Die Preisbeispiele enthalten die jeweils eingeplanten Reinigungskosten. Für andere Aufenthaltsdauern erstellen wir Ihnen gerne ein passendes Angebot.</p>
-        </div>
-      </section>
-
-      <section class="section availability" id="kalender">
-        <div class="section-heading compact">
-          <p class="eyebrow" data-de="Freie Zeiten" data-en="Available dates">Freie Zeiten</p>
-          <h2 data-de="Belegung prüfen" data-en="Check availability">Belegung prüfen</h2>
-          <p data-de="Rot markierte Tage sind bereits belegt. Mit den Pfeilen können Sie zwischen den Monaten wechseln." data-en="Dates marked in red are already booked. Use the arrows to move between months.">Rot markierte Tage sind bereits belegt. Mit den Pfeilen können Sie zwischen den Monaten wechseln.</p>
-        </div>
-        <div class="calendar-card">
-          <div class="calendar-heading">
-            <button id="previous-month" type="button" aria-label="Vorheriger Monat" data-aria-de="Vorheriger Monat" data-aria-en="Previous month">←</button>
-            <h3 id="month-label"></h3>
-            <button id="next-month" type="button" aria-label="Nächster Monat" data-aria-de="Nächster Monat" data-aria-en="Next month">→</button>
-          </div>
-          <div class="calendar-grid weekdays" aria-hidden="true">
-            <span data-de="Mo" data-en="Mon">Mo</span><span data-de="Di" data-en="Tue">Di</span><span data-de="Mi" data-en="Wed">Mi</span><span data-de="Do" data-en="Thu">Do</span><span data-de="Fr" data-en="Fri">Fr</span><span data-de="Sa" data-en="Sat">Sa</span><span data-de="So" data-en="Sun">So</span>
-          </div>
-          <div class="calendar-grid" id="calendar-days" role="grid" aria-label="Belegungskalender" data-aria-de="Belegungskalender" data-aria-en="Availability calendar"></div>
-          <div class="legend">
-            <span><i class="dot available-dot"></i><span data-de="frei" data-en="available">frei</span></span>
-            <span><i class="dot booked-dot"></i><span data-de="belegt" data-en="booked">belegt</span></span>
-          </div>
-          <p class="calendar-note" data-de="Der Kalender zeigt eine unverbindliche Übersicht. Die Buchung wird erst nach persönlicher Bestätigung verbindlich." data-en="The calendar provides a non-binding overview. A booking is only confirmed after you receive our personal confirmation.">Der Kalender zeigt eine unverbindliche Übersicht. Die Buchung wird erst nach persönlicher Bestätigung verbindlich.</p>
         </div>
       </section>
 
@@ -323,7 +350,7 @@
     <footer>
       <div class="brand footer-brand"><span class="brand-mark">⌂</span><span>Bungalow <b>in Winterfeld</b></span></div>
       <p data-de="Eine ruhige Auszeit oder ein angenehmes Zuhause auf Zeit." data-en="A peaceful break or a comfortable temporary home.">Eine ruhige Auszeit oder ein angenehmes Zuhause auf Zeit.</p>
-      <div><a href="#impressum" data-de="Impressum" data-en="Legal notice">Impressum</a><a href="#datenschutz" data-de="Datenschutz" data-en="Privacy">Datenschutz</a><a href="#preise" data-de="Preise &amp; Bedingungen" data-en="Prices &amp; conditions">Preise &amp; Bedingungen</a></div>
+      <div><a href="#impressum" data-de="Impressum" data-en="Legal notice">Impressum</a><a href="#datenschutz" data-de="Datenschutz" data-en="Privacy">Datenschutz</a><a href="#buchung" data-de="Preise &amp; Belegung" data-en="Prices &amp; availability">Preise &amp; Belegung</a></div>
       <small data-de="© 2026 Ferienbungalow · Testseite mit Beispieldaten" data-en="© 2026 Holiday bungalow · Test page with sample details">© 2026 Ferienbungalow · Testseite mit Beispieldaten</small>
     </footer>
     <script>
@@ -334,61 +361,93 @@
         };
         let language = localStorage.getItem('bungalow-language') === 'en' ? 'en' : 'de';
         let changingMonthLabel = false;
-        const carouselImage = document.getElementById('inside-carousel-image');
-        const carouselStatus = document.getElementById('carousel-status');
-        const carouselDots = document.getElementById('carousel-dots');
-        const carouselImages = [
-          'images/bungalow_inside1.jpeg',
-          'images/bungalow_inside2.jpeg',
-          'images/bungalow_inside3.jpeg',
-          'images/bungalow_inside4.jpeg',
-          'images/bungalow_inside5.jpeg',
-          'images/bungalow_inside6.jpeg'
-        ];
-        const carouselTotal = carouselImages.length;
-        let carouselIndex = 0;
+        const carouselConfigurations = {
+          inside: [
+            { src: 'images/bungalow_inside1.jpeg', de: 'Wohnbereich mit Couch', en: 'Living area with sofa' },
+            { src: 'images/bungalow_inside2.jpeg', de: 'Essbereich', en: 'Dining area' },
+            { src: 'images/bungalow_inside3.jpeg', de: 'Essbereich', en: 'Dining area' },
+            { src: 'images/bungalow_inside4.jpeg', de: 'Küche', en: 'Kitchen' },
+            { src: 'images/bungalow_inside5.jpeg', de: 'Küche', en: 'Kitchen' },
+            { src: 'images/bungalow_inside6.jpeg', de: 'Schlafzimmer', en: 'Bedroom' },
+            { src: 'images/bungalow_inside7.jpeg', de: 'Kamin', en: 'Fireplace' },
+            { src: 'images/bungalow_inside8.jpeg', de: 'Platzhalter', en: 'Placeholder' },
+            { src: 'images/bungalow_inside9.jpeg', de: 'Platzhalter', en: 'Placeholder' }
+          ],
+          garden: [
+            { src: 'images/garden1.jpeg', de: 'Vorderansicht/Südseite', en: 'Front view/south side' },
+            { src: 'images/garden2.jpeg', de: 'Vorderansicht/Südseite', en: 'Front view/south side' },
+            { src: 'images/garden3.jpeg', de: 'Ostseite', en: 'East side' },
+            { src: 'images/garden4.jpeg', de: 'Nordseite', en: 'North side' },
+            { src: 'images/garden5.jpeg', de: 'Westseite', en: 'West side' },
+            { src: 'images/garden6.jpeg', de: 'Sonnenuntergang', en: 'Sunset' },
+            { src: 'images/garden7.jpeg', de: 'Garten mit Susi', en: 'Garden with Susi' },
+            { src: 'images/garden8.jpeg', de: 'Susi', en: 'Susi' },
+            { src: 'images/garden9.jpeg', de: 'Platzhalter', en: 'Placeholder' },
+            { src: 'images/garden10.jpeg', de: 'Platzhalter', en: 'Placeholder' }
+          ],
+          activities: [
+            { src: 'images/activities1.jpeg', de: 'Liegestuhl', en: 'Sun lounger' },
+            { src: 'images/activities2.jpeg', de: 'Feldsteinkirche Foto Schiwago', en: 'Fieldstone church, photo Schiwago' },
+            { src: 'images/activities3.jpeg', de: 'Hünengrab, Foto Olaf Meister', en: 'Megalithic tomb, photo Olaf Meister' },
+            { src: 'images/activities4.jpeg', de: 'Waldbad, Foto Mark Wöllmann', en: 'Woodland swimming pool, photo Mark Wöllmann' },
+            { src: 'images/activities5.jpeg', de: 'Arendsee Foto Christian Fischer', en: 'Arendsee photo Christian Fischer' },
+            { src: 'images/activities6.jpeg', de: 'Arendsee Foto Vanellus', en: 'Arendsee photo Vanellus' },
+            { src: 'images/activities7.jpeg', de: 'Wassertreten Foto Christian von Polent', en: 'Treading water, photo Christian von Polent' }
+          ]
+        };
+        const carouselStates = new Map();
 
-        function updateCarousel() {
-          if (!carouselImage || !carouselStatus || !carouselDots) return;
-          const number = carouselIndex + 1;
-          const expectedSource = carouselImages[carouselIndex];
-          if (!carouselImage.src.endsWith(expectedSource)) carouselImage.src = expectedSource;
-          carouselImage.alt = language === 'de'
-            ? `Innenaufnahme ${number} von ${carouselTotal}`
-            : `Interior photo ${number} of ${carouselTotal}`;
-          carouselStatus.textContent = `${number} / ${carouselTotal}`;
-          carouselDots.querySelectorAll('.carousel-dot').forEach((dot, index) => {
-            dot.setAttribute('aria-current', String(index === carouselIndex));
-            dot.setAttribute('aria-label', language === 'de' ? `Bild ${index + 1}` : `Photo ${index + 1}`);
+        function updatePhotoCarousel(state) {
+          const item = state.items[state.index];
+          const number = state.index + 1;
+          if (!state.image.src.endsWith(item.src)) state.image.src = item.src;
+          state.image.alt = item[language];
+          state.caption.textContent = item[language];
+          state.status.textContent = `${number} / ${state.items.length}`;
+          state.dots.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+            dot.setAttribute('aria-current', String(index === state.index));
+            const caption = state.items[index][language];
+            dot.setAttribute('aria-label', language === 'de'
+              ? `Bild ${index + 1}: ${caption}`
+              : `Photo ${index + 1}: ${caption}`);
           });
         }
 
-        function showCarouselImage(index) {
-          carouselIndex = (index + carouselTotal) % carouselTotal;
-          updateCarousel();
+        function showPhoto(state, index) {
+          state.index = (index + state.items.length) % state.items.length;
+          updatePhotoCarousel(state);
         }
 
-        if (carouselDots) {
-          for (let index = 0; index < carouselTotal; index += 1) {
+        document.querySelectorAll('[data-carousel]').forEach(carousel => {
+          const items = carouselConfigurations[carousel.dataset.carousel];
+          const image = carousel.querySelector('.carousel-image');
+          const caption = carousel.querySelector('.carousel-caption');
+          const status = carousel.querySelector('.carousel-status');
+          const dots = carousel.querySelector('.carousel-dots');
+          const previous = carousel.querySelector('.carousel-button.previous');
+          const next = carousel.querySelector('.carousel-button.next');
+          if (!items || !image || !caption || !status || !dots) return;
+
+          const state = { carousel, items, image, caption, status, dots, index: 0 };
+          carouselStates.set(carousel.dataset.carousel, state);
+          items.forEach((item, index) => {
             const dot = document.createElement('button');
             dot.type = 'button';
             dot.className = 'carousel-dot';
-            dot.setAttribute('aria-label', `Bild ${index + 1}`);
-            dot.addEventListener('click', () => showCarouselImage(index));
-            carouselDots.appendChild(dot);
-          }
-        }
+            dot.addEventListener('click', () => showPhoto(state, index));
+            dots.appendChild(dot);
+          });
+          previous?.addEventListener('click', () => showPhoto(state, state.index - 1));
+          next?.addEventListener('click', () => showPhoto(state, state.index + 1));
 
-        document.getElementById('carousel-previous')?.addEventListener('click', () => showCarouselImage(carouselIndex - 1));
-        document.getElementById('carousel-next')?.addEventListener('click', () => showCarouselImage(carouselIndex + 1));
-
-        const carousel = document.getElementById('inside-carousel');
-        let touchStartX = 0;
-        carousel?.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
-        carousel?.addEventListener('touchend', event => {
-          const distance = event.changedTouches[0].clientX - touchStartX;
-          if (Math.abs(distance) > 45) showCarouselImage(carouselIndex + (distance < 0 ? 1 : -1));
-        }, { passive: true });
+          let touchStartX = 0;
+          carousel.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+          carousel.addEventListener('touchend', event => {
+            const distance = event.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(distance) > 45) showPhoto(state, state.index + (distance < 0 ? 1 : -1));
+          }, { passive: true });
+          updatePhotoCarousel(state);
+        });
 
         function updateMonthLabel() {
           const label = document.getElementById('month-label');
@@ -429,7 +488,7 @@
           document.querySelectorAll('.language-button').forEach(button => {
             button.setAttribute('aria-pressed', String(button.dataset.language === language));
           });
-          updateCarousel();
+          carouselStates.forEach(updatePhotoCarousel);
           document.title = language === 'de' ? 'Ferienbungalow in Winterfeld' : 'Holiday bungalow in Winterfeld';
           document.querySelector('meta[name="description"]').content = language === 'de'
             ? 'Ruhiger Ferienbungalow in der Altmark für Urlaubsgäste, Monteure und längere Projektaufenthalte.'
