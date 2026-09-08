@@ -9,8 +9,8 @@
     <script src="script.js" defer></script>
     <style>
       .language-switcher { display: flex; gap: .4rem; align-items: center; margin-left: auto; }
-      .language-button { border: 1px solid rgba(0,0,0,.18); border-radius: 999px; background: #fff; color: #111; padding: .42rem .7rem; cursor: pointer; font: inherit; }
-      .language-button[aria-pressed="true"] { background: #244b3a; color: #fff; border-color: #244b3a; }
+      .language-button { border: 1px solid #244b3a; border-radius: 999px; background: #244b3a; color: #fff; padding: .42rem .7rem; cursor: pointer; font: inherit; }
+      .language-button[aria-pressed="true"] { background: #fff; color: #111; border-color: #244b3a; }
       .site-header > .brand { margin-right: clamp(1.5rem, 3vw, 3rem); flex-shrink: 0; }
       .site-header nav { display: flex; align-items: center; gap: clamp(.85rem, 1.5vw, 1.4rem); }
       .photo-carousel { position: relative; margin: 0; overflow: hidden; background: #d8d1c2; box-shadow: 0 14px 44px rgba(30,50,40,.12); }
@@ -42,7 +42,7 @@
         max-width: none;
         margin-left: calc(clamp(24px, 7vw, 110px) * -1);
       }
-      .info-carousel .carousel-image { flex: 1 1 auto; height: 0; min-height: 550px; object-fit: cover; }
+      .info-carousel .carousel-image { flex: 1 1 auto; height: 0; min-height: 550px; object-fit: contain; }
       .info-split.reverse .info-heading, .info-split.reverse .info-body { grid-column: 1; }
       .info-split.reverse > .info-carousel {
         grid-column: 2;
@@ -53,6 +53,10 @@
       }
       .distance-list > div { display: grid; grid-template-columns: minmax(115px, 135px) minmax(0, 1fr); column-gap: 1.2rem; align-items: start; padding-right: 1rem; }
       .distance-list > div > b, .distance-list > div > span { min-width: 0; }
+      .distance-list a, .route-text a { color: #244b3a; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+      .distance-list a:hover, .distance-list a:focus-visible, .route-text a:hover, .route-text a:focus-visible { color: #c86f4a; text-decoration-thickness: 2px; }
+      .carousel-caption small { display: block; margin-top: .35rem; font-size: .78rem; font-weight: 400; line-height: 1.45; }
+      .carousel-caption a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
       .inquiry { grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); align-items: start; }
       .booking-overview { background: #f6f3ec; }
       .price-details { min-width: 0; }
@@ -224,11 +228,15 @@
           <p data-de="Die ländliche Umgebung lädt zu Spaziergängen, Wanderungen und erholsamen Ausflügen ein. Gleichzeitig finden Sie im Ort alles Wichtige für den täglichen Bedarf." data-en="The rural surroundings are ideal for walks, hikes and relaxing day trips. At the same time, the village provides everything you need for daily life.">Die ländliche Umgebung lädt zu Spaziergängen, Wanderungen und erholsamen Ausflügen ein. Gleichzeitig finden Sie im Ort alles Wichtige für den täglichen Bedarf.</p>
           <div class="distance-list">
             <div><b data-de="Versorgung vor Ort" data-en="Local amenities">Versorgung vor Ort</b><span data-de="Supermarkt, Bäckerei, Fleischerei und Tankstelle" data-en="Supermarket, bakery, butcher and petrol station">Supermarkt, Bäckerei, Fleischerei und Tankstelle</span></div>
-            <div><b data-de="Sehenswertes im Ort" data-en="Local sights">Sehenswertes im Ort</b><span data-de="Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben" data-en="Hoppstall riding stables and a Romanesque fieldstone church with a historic megalithic tomb beside it">Reithof Hoppstall sowie eine romanische Feldsteinkirche mit historischem Hünengrab direkt daneben</span></div>
-            <div><b data-de="Nachbarort" data-en="Neighbouring village">Nachbarort</b><span data-de="Waldbad für eine Abkühlung an warmen Tagen" data-en="Woodland swimming pool for a refreshing dip on warm days">Waldbad für eine Abkühlung an warmen Tagen</span></div>
-            <div><b data-de="Ausflugsziel" data-en="Day trip">Ausflugsziel</b><span data-de="Der Arendsee, der größte natürliche See Sachsen-Anhalts und mit rund 50 m Tiefe einer der tiefsten Seen Norddeutschlands" data-en="Lake Arendsee, the largest natural lake in Saxony-Anhalt and, at around 50 m deep, one of northern Germany's deepest lakes">Der Arendsee, der größte natürliche See Sachsen-Anhalts und mit rund 50&nbsp;m Tiefe einer der tiefsten Seen Norddeutschlands</span></div>
+            <div><b data-de="Sehenswertes im Ort" data-en="Local sights">Sehenswertes im Ort</b><span>
+              <span data-de="Altmärkische Küche im " data-en="Regional Altmark cuisine at ">Altmärkische Küche im </span><a href="http://571121001.swh.strato-hosting.eu/" target="_blank" rel="noopener noreferrer">Wieseneck</a><span data-de=" und im " data-en=" and the "> und im </span><a href="https://www.winterfelder-hof-altmark.de/" target="_blank" rel="noopener noreferrer" data-de="Winterfelder Hof" data-en="Winterfelder Hof">Winterfelder Hof</a><span data-de=" sowie eine " data-en=", plus a "> sowie eine </span><a href="https://www.stiftung-kiba.de/kirchen/dorfkirche-winterfeld" target="_blank" rel="noopener noreferrer" data-de="romanische Feldsteinkirche" data-en="Romanesque fieldstone church">romanische Feldsteinkirche</a><span data-de=" mit " data-en=" with a "> mit </span><a href="http://grosssteingraeber.de/seiten/deutschland/sachsen-anhalt/altmark/winterfeld.php" target="_blank" rel="noopener noreferrer" data-de="historischem Hünengrab" data-en="historic megalithic tomb">historischem Hünengrab</a><span data-de=" direkt daneben" data-en=" directly beside it"> direkt daneben</span>
+            </span></div>
+            <div><b data-de="Nachbarort" data-en="Neighbouring village">Nachbarort</b><span>
+              <a href="https://flecken-apenburg-winterfeld.de/waldbad-2/" target="_blank" rel="noopener noreferrer" data-de="Waldbad" data-en="woodland swimming pool">Waldbad</a><span data-de=" für eine Abkühlung an warmen Tagen sowie die " data-en=" for a refreshing dip on warm days, as well as "> für eine Abkühlung an warmen Tagen sowie die </span><a href="https://www.gut-apenburg.de/home/gut-apenburg/" target="_blank" rel="noopener noreferrer" data-de="Burg Apenburg" data-en="Apenburg Castle">Burg Apenburg</a>
+            </span></div>
+            <div><b data-de="Ausflugsziel" data-en="Day trip">Ausflugsziel</b><span><span data-de="Der " data-en="">Der </span><a href="https://luftkurort-arendsee.de/aktiv/strandbad/" target="_blank" rel="noopener noreferrer" data-de="Arendsee" data-en="Lake Arendsee">Arendsee</a><span data-de=", der größte natürliche See Sachsen-Anhalts und mit rund 50 m Tiefe einer der tiefsten Seen Norddeutschlands" data-en=", the largest natural lake in Saxony-Anhalt and, at around 50 m deep, one of northern Germany's deepest lakes">, der größte natürliche See Sachsen-Anhalts und mit rund 50&nbsp;m Tiefe einer der tiefsten Seen Norddeutschlands</span></span></div>
           </div>
-          <p data-de="Der Arendsee entstand durch Einbrüche des Untergrunds und gehört zu den größten Einbruchseen Norddeutschlands. Rund um den See bieten sich viele Möglichkeiten zum Baden, Spazierengehen und für weitere Ausflüge." data-en="Lake Arendsee was formed by collapses in the ground and is one of the largest collapse lakes in northern Germany. The lake and its surroundings offer many opportunities for swimming, walking and day trips.">Der Arendsee entstand durch Einbrüche des Untergrunds und gehört zu den größten Einbruchseen Norddeutschlands. Rund um den See bieten sich viele Möglichkeiten zum Baden, Spazierengehen und für weitere Ausflüge.</p>
+          <p class="route-text"><span data-de="Direkt von Winterfeld aus können Sie einfache Wanderungen oder Fahrradtouren starten. Nordwestlich liegen mit dem " data-en="You can start easy walks or cycle tours directly from Winterfeld. To the north-west are two small lakes, ">Direkt von Winterfeld aus können Sie einfache Wanderungen oder Fahrradtouren starten. Nordwestlich liegen mit dem </span><a href="https://maps.app.goo.gl/dhaYNtG7oKfbMPBn9" target="_blank" rel="noopener noreferrer" data-de="Plattensee Große Wiesen" data-en="Plattensee Große Wiesen">Plattensee Große Wiesen</a><span data-de=" und dem " data-en=" and "> und dem </span><a href="https://maps.app.goo.gl/bxdTbx4rXUJxUPvcA" target="_blank" rel="noopener noreferrer" data-de="Schwanensee" data-en="Schwanensee">Schwanensee</a><span data-de=" zwei kleine Seen sowie ein " data-en=", as well as a "> zwei kleine Seen sowie ein </span><a href="https://maps.app.goo.gl/p6cMM2UbzmM5kbuJ7" target="_blank" rel="noopener noreferrer" data-de="Kuhschellenstandort" data-en="pasque-flower site">Kuhschellenstandort</a><span data-de=". Südwestlich befindet sich das " data-en=". To the south-west lies the ">. Südwestlich befindet sich das </span><a href="https://maps.app.goo.gl/3UUAW9T7vZ3qKwKB7" target="_blank" rel="noopener noreferrer" data-de="Wald- und Wandergebiet Parchen" data-en="Parchen woodland and hiking area">Wald- und Wandergebiet Parchen</a><span>.</span></p>
         </div>
       </section>
 
@@ -322,8 +330,6 @@
             <h3 data-de="Kontakt" data-en="Contact">Kontakt</h3>
             <p data-de="Telefon: [Telefonnummer]" data-en="Phone: [phone number]">Telefon: [Telefonnummer]</p>
             <p data-de="E-Mail: [E-Mail-Adresse]" data-en="Email: [email address]">E-Mail: [E-Mail-Adresse]</p>
-            <h3 data-de="Umsatzsteuer" data-en="VAT information">Umsatzsteuer</h3>
-            <p data-de="Falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.]. Andernfalls diesen Absatz entfernen." data-en="If applicable: VAT identification number pursuant to Section 27a UStG: [VAT ID]. Otherwise remove this paragraph.">Falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.]. Andernfalls diesen Absatz entfernen.</p>
           </article>
 
           <article class="legal-card" id="datenschutz">
@@ -363,13 +369,13 @@
         let changingMonthLabel = false;
         const carouselConfigurations = {
           inside: [
-            { src: 'images/bungalow_inside1.jpeg', de: 'Wohnbereich mit Couch', en: 'Living area with sofa' },
             { src: 'images/bungalow_inside2.jpeg', de: 'Essbereich', en: 'Dining area' },
             { src: 'images/bungalow_inside3.jpeg', de: 'Essbereich', en: 'Dining area' },
             { src: 'images/bungalow_inside4.jpeg', de: 'Küche', en: 'Kitchen' },
             { src: 'images/bungalow_inside5.jpeg', de: 'Küche', en: 'Kitchen' },
             { src: 'images/bungalow_inside6.jpeg', de: 'Schlafzimmer', en: 'Bedroom' },
             { src: 'images/bungalow_inside7.jpeg', de: 'Kamin', en: 'Fireplace' },
+            { src: 'images/bungalow_inside1.jpeg', de: 'Wohnbereich mit Couch', en: 'Living area with sofa' },
             { src: 'images/bungalow_inside8.jpeg', de: 'Platzhalter', en: 'Placeholder' },
             { src: 'images/bungalow_inside9.jpeg', de: 'Platzhalter', en: 'Placeholder' }
           ],
@@ -386,13 +392,43 @@
             { src: 'images/garden10.jpeg', de: 'Platzhalter', en: 'Placeholder' }
           ],
           activities: [
-            { src: 'images/activities1.jpeg', de: 'Liegestuhl', en: 'Sun lounger' },
-            { src: 'images/activities2.jpeg', de: 'Feldsteinkirche Foto Schiwago', en: 'Fieldstone church, photo Schiwago' },
-            { src: 'images/activities3.jpeg', de: 'Hünengrab, Foto Olaf Meister', en: 'Megalithic tomb, photo Olaf Meister' },
-            { src: 'images/activities4.jpeg', de: 'Waldbad, Foto Mark Wöllmann', en: 'Woodland swimming pool, photo Mark Wöllmann' },
-            { src: 'images/activities5.jpeg', de: 'Arendsee Foto Christian Fischer', en: 'Arendsee photo Christian Fischer' },
-            { src: 'images/activities6.jpeg', de: 'Arendsee Foto Vanellus', en: 'Arendsee photo Vanellus' },
-            { src: 'images/activities7.jpeg', de: 'Wassertreten Foto Christian von Polent', en: 'Treading water, photo Christian von Polent' }
+            { src: 'images/activities1.jpeg', de: 'Platzhalter Liegestuhl', en: 'Placeholder Sun lounger' },
+            {
+              src: 'images/activities2.jpeg',
+              de: 'Feldsteinkirche', en: 'Fieldstone church',
+              captionDe: 'Feldsteinkirche<small>Foto: Schiwago, <a href="https://commons.wikimedia.org/wiki/File:Winterfeld_Kirche1.jpg" target="_blank" rel="noopener noreferrer">„Winterfeld Kirche1.jpg“</a>, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a></small>',
+              captionEn: 'Fieldstone church<small>Photo: Schiwago, <a href="https://commons.wikimedia.org/wiki/File:Winterfeld_Kirche1.jpg" target="_blank" rel="noopener noreferrer">“Winterfeld Kirche1.jpg”</a>, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a></small>'
+            },
+            {
+              src: 'images/activities3.jpeg',
+              de: 'Hünengrab', en: 'Megalithic tomb',
+              captionDe: 'Hünengrab<small>Foto: Olaf Meister, <a href="https://commons.wikimedia.org/wiki/File:H%C3%BCnengrab_Winterfeld2.jpg" target="_blank" rel="noopener noreferrer">„Hünengrab Winterfeld2.jpg“</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></small>',
+              captionEn: 'Megalithic tomb<small>Photo: Olaf Meister, <a href="https://commons.wikimedia.org/wiki/File:H%C3%BCnengrab_Winterfeld2.jpg" target="_blank" rel="noopener noreferrer">“Hünengrab Winterfeld2.jpg”</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></small>'
+            },
+            {
+              src: 'images/activities4.jpeg',
+              de: 'Waldbad Apenburg', en: 'Apenburg woodland swimming pool',
+              captionDe: 'Waldbad Apenburg<small>Platzhalter KI-generierte Illustration – zeigt nicht das tatsächliche Waldbad Apenburg</small>',
+              captionEn: 'Apenburg woodland swimming pool<small>Placeholder AI-generated illustration – does not show the actual Apenburg woodland swimming pool</small>'
+            },
+            {
+              src: 'images/activities5.jpeg',
+              de: 'Arendsee', en: 'Lake Arendsee',
+              captionDe: 'Arendsee<small>Foto: Christian Fischer, <a href="https://commons.wikimedia.org/wiki/File:Arendsee1.jpg" target="_blank" rel="noopener noreferrer">„Arendsee1.jpg“</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></small>',
+              captionEn: 'Lake Arendsee<small>Photo: Christian Fischer, <a href="https://commons.wikimedia.org/wiki/File:Arendsee1.jpg" target="_blank" rel="noopener noreferrer">“Arendsee1.jpg”</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></small>'
+            },
+            {
+              src: 'images/activities6.jpeg',
+              de: 'Ausflugsschiff Queen Arendsee', en: 'Queen Arendsee excursion boat',
+              captionDe: 'Ausflugsschiff Queen Arendsee<small>Foto: Vanellus Foto, <a href="https://commons.wikimedia.org/wiki/File:Queen_Arendsee.JPG" target="_blank" rel="noopener noreferrer">„Queen Arendsee.JPG“</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></small>',
+              captionEn: 'Queen Arendsee excursion boat<small>Photo: Vanellus Foto, <a href="https://commons.wikimedia.org/wiki/File:Queen_Arendsee.JPG" target="_blank" rel="noopener noreferrer">“Queen Arendsee.JPG”</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></small>'
+            },
+            {
+              src: 'images/activities7.jpeg',
+              de: 'Wassertretstelle in Schwiesau', en: 'Water-treading pool in Schwiesau',
+              captionDe: 'Wassertretstelle in Schwiesau<small>Foto: IMG Sachsen-Anhalt mbH/Christian von Polentz, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>, Reiseland Sachsen-Anhalt · <a href="https://www.outdooractive.com/de/poi/altmark/wassertretstelle-in-schwiesau-cool-down-in-der-baeke/54558298/" target="_blank" rel="noopener noreferrer">Quelle</a></small>',
+              captionEn: 'Water-treading pool in Schwiesau<small>Photo: IMG Sachsen-Anhalt mbH/Christian von Polentz, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>, Reiseland Sachsen-Anhalt · <a href="https://www.outdooractive.com/de/poi/altmark/wassertretstelle-in-schwiesau-cool-down-in-der-baeke/54558298/" target="_blank" rel="noopener noreferrer">Source</a></small>'
+            }
           ]
         };
         const carouselStates = new Map();
@@ -402,7 +438,8 @@
           const number = state.index + 1;
           if (!state.image.src.endsWith(item.src)) state.image.src = item.src;
           state.image.alt = item[language];
-          state.caption.textContent = item[language];
+          const captionProperty = language === 'de' ? 'captionDe' : 'captionEn';
+          state.caption.innerHTML = item[captionProperty] || item[language];
           state.status.textContent = `${number} / ${state.items.length}`;
           state.dots.querySelectorAll('.carousel-dot').forEach((dot, index) => {
             dot.setAttribute('aria-current', String(index === state.index));
